@@ -1,5 +1,4 @@
-﻿using Residual.Models;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -9,14 +8,8 @@ namespace Residual.Controllers
 {
     public class HomeController : Controller
     {
-        ModelContext db = new ModelContext();
         public ActionResult Index()
         {
-            Teste t = new Teste();
-            t.id = 1;
-
-            db.testes.Add(t);
-            db.SaveChanges();
             return View();
         }
 
