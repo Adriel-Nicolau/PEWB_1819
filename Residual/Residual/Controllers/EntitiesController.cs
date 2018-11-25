@@ -35,18 +35,18 @@ namespace Residual.Controllers
             return View(entity);
         }
 
-        // GET: Entities/Create
-        public ActionResult Create()
+        // GET: Entities/Register
+        public ActionResult Register()
         {
             return View();
         }
 
-        // POST: Entities/Create
+        // POST: Entities/Register
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ID,IDentityType,Name,Contact,BirthDate,Gender,IDlocation,Adress")] Entity entity)
+        public ActionResult Register([Bind(Include = "ID,IDentityType,Name,Contact,BirthDate,Gender,IDlocation,Adress")] Entity entity)
         {
             if (ModelState.IsValid)
             {

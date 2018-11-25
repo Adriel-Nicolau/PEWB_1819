@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Web;
 
@@ -8,8 +10,14 @@ namespace Residual.Models
     public class Service
     {
         public int ID { get; set; }
-        public int IDserviceType { get; set; }
-        public int IDentityRequesting { get; set; }
-        public int IDentityReceiving { get; set; }
+        [Required]
+        [ForeignKey("ServiceType")]
+        public int ServiceTypeID { get; set; }
+
+        public string Description { get; set; }
+             
+        public virtual ServiceType ServiceType { get; set; }
+        public virtual ICollection<ServiceEntityRelational> ServiceEntities { get; set; }
+        public virtual ICollection<Equipment> Equipments  { get; set; }
     }
 }

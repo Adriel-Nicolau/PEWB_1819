@@ -164,11 +164,40 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201811251903098_re.cs" />
+    <Compile Include="Migrations\201811251903098_re.Designer.cs">
+      <DependentUpon>201811251903098_re.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201811251909176_3.cs" />
+    <Compile Include="Migrations\201811251909176_3.Designer.cs">
+      <DependentUpon>201811251909176_3.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201811252018411_4.cs" />
+    <Compile Include="Migrations\201811252018411_4.Designer.cs">
+      <DependentUpon>201811252018411_4.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201811252034410_6.cs" />
+    <Compile Include="Migrations\201811252034410_6.Designer.cs">
+      <DependentUpon>201811252034410_6.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201811252040022_7.cs" />
+    <Compile Include="Migrations\201811252040022_7.Designer.cs">
+      <DependentUpon>201811252040022_7.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201811252044114_8.cs" />
+    <Compile Include="Migrations\201811252044114_8.Designer.cs">
+      <DependentUpon>201811252044114_8.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\ActionModel\Action.cs" />
+    <Compile Include="Models\RelationalModel\ServiceEntityRelational.cs" />
     <Compile Include="Models\EntityModel\Entity.cs" />
     <Compile Include="Models\EntityTypeModel\EntityType.cs" />
+    <Compile Include="Models\EquipmentModel\Equipment.cs" />
+    <Compile Include="Models\EquipmentTypeModel\EquipmentType.cs" />
     <Compile Include="Models\LocationModel\Location.cs" />
     <Compile Include="Models\ResidualDBModelContext.cs" />
+    <Compile Include="Models\ResidualDBModelContext.Views.cs" />
     <Compile Include="Models\ReviewModel\Review.cs" />
     <Compile Include="Models\RoleModel\Role.cs" />
     <Compile Include="Models\ServiceModel\Service.cs" />
@@ -189,7 +218,7 @@
     <Content Include="ApplicationInsights.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Views\Entities\Create.cshtml" />
+    <Content Include="Views\Entities\Register.cshtml" />
     <Content Include="Views\Entities\Delete.cshtml" />
     <Content Include="Views\Entities\Details.cshtml" />
     <Content Include="Views\Entities\Edit.cshtml" />
@@ -221,7 +250,9 @@
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
@@ -253,6 +284,26 @@
     <None Include="packages.config" />
     <Content Include="Scripts\jquery-3.3.1.slim.min.map" />
     <Content Include="Scripts\jquery-3.3.1.min.map" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201811251903098_re.resx">
+      <DependentUpon>201811251903098_re.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201811251909176_3.resx">
+      <DependentUpon>201811251909176_3.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201811252018411_4.resx">
+      <DependentUpon>201811252018411_4.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201811252034410_6.resx">
+      <DependentUpon>201811252034410_6.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201811252040022_7.resx">
+      <DependentUpon>201811252040022_7.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201811252044114_8.resx">
+      <DependentUpon>201811252044114_8.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

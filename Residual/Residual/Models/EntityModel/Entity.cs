@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Web;
 
@@ -8,29 +9,42 @@ namespace Residual.Models
 {
     public class Entity
     {
-        
+        [Key]
         public int ID { get; set; }
 
-        public int IDentityType { get; set; } // FK from entityTypeModel
+        [Required]
+        [ForeignKey("EntityType")]
+        public int EntityTypeID { get; set; } // FK from entityTypeModel
 
-        
+        [Required]
         [Display(Name = "Nome Completo")]
+        [StringLength(50, ErrorMessage = "Nome não pode ter mais que 50 caracteres")]
         public string Name { get; set; }
-
+        [Required]
         [Display(Name = "Contacto")]
         public int Contact { get; set; }
-
+        [Required]
         [DataType(DataType.Date)]
         [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         [Display(Name = "Data de Nascimento")]
         public DateTime BirthDate { get; set; }
 
         [Display(Name = "Genero")]
+        //vai ser um picker com as opçoes 
         public string Gender { get; set; }
-
-        public int IDlocation { get; set; } // FK from locationModel
+        [Required]
         [Display(Name = "Endereço")]
         public string Adress { get; set; }
+
+        [Display(Name = "Região")]
+        [Required]
+        [ForeignKey("Location")]
+        public int LocationID { get; set; } // FK from locationModel
+
+        public virtual EntityType EntityType { get; set; }
+        public virtual Location Location { get; set; }
+        public virtual ICollection<ServiceEntityRelational> ServiceEntities { get; set; }
+
     }
 
 }
