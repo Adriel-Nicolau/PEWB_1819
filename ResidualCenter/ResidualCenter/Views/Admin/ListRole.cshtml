@@ -1,0 +1,37 @@
+﻿
+@model IEnumerable<Microsoft.AspNet.Identity.EntityFramework.IdentityRole>
+@{
+    ViewBag.Title = "ListRole";
+}
+<h2>Lista de Roles</h2>
+<!-- no onclick vou para outra pagina Argumentos(Action,Controller) -->
+<button type="button" class="btn btn-primary" onclick=" window.location.href = '@Url.Action("CreateRole", "Admin")';">Criar Role</button>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">Nome</th>
+            <th scope="col">Opções</th>
+        </tr>
+    </thead>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <th scope="row"> @Html.DisplayFor(modelItem => item.Id)</th>
+
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.ActionLink("Editar", "EditRole", new { id = item.Id }) |
+                @Html.ActionLink("Detalhes", "DetailsRole", new { id = item.Id }) |
+                @Html.ActionLink("Remover", "DeleteRole", new { id = item.Id })
+            </td>
+        </tr>
+
+    }
+
+</table>
+
+
