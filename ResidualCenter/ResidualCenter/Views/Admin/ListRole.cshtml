@@ -6,9 +6,11 @@
 <h2>Lista de Roles</h2>
 <!-- no onclick vou para outra pagina Argumentos(Action,Controller) -->
 <button type="button" class="btn btn-primary" onclick=" window.location.href = '@Url.Action("CreateRole", "Admin")';">Criar Role</button>
-
-<table class="table">
-    <thead>
+<br />
+<br />
+<br />
+<table style="width:800px" class="table table-bordered">
+    <thead class="thead-dark">
         <tr>
             <th scope="col">#</th>
             <th scope="col">Nome</th>
@@ -18,12 +20,12 @@
     @foreach (var item in Model)
     {
         <tr>
-            <th scope="row"> @Html.DisplayFor(modelItem => item.Id)</th>
+            <th  align="center"scope="row"> @Html.DisplayFor(modelItem => item.Id)</th>
 
-            <td>
+            <td  align="center">
                 @Html.DisplayFor(modelItem => item.Name)
             </td>
-            <td>
+            <td align="center">
                 @Html.ActionLink("Editar", "EditRole", new { id = item.Id }) |
                 @Html.ActionLink("Detalhes", "DetailsRole", new { id = item.Id }) |
                 @Html.ActionLink("Remover", "DeleteRole", new { id = item.Id })

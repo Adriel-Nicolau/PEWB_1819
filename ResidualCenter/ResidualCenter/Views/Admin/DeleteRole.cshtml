@@ -4,22 +4,24 @@
 }
 
 <h2>Deletar Role</h2>
-<table class="table">
-    <thead>
+<table style="width:400px"class="table table-bordered">
+    
+    <thead class="thead-dark">
+    
         <tr>
-            <th scope="col">#</th>
-            <th scope="col">Nome</th>
-            <th scope="col">Opções</th>
+            <th  style="display:none;" scope="col">#</th>
+            <th scope="col" >Nome</th>
+            <th scope="col" >Opções</th>
         </tr>
-    </thead>
+    </thead >
 
     <tr>
-        <td> @Html.DisplayFor(model => model.Id)</td>
+        <td align="center" style="display:none;"> @Html.DisplayFor(model => model.Id)</td>
 
-        <td>
+        <td align="center">
             @Html.DisplayFor(model => model.Name)
         </td>
-        <td>
+        <td align="center">
             @using (Html.BeginForm())
             {
                 @Html.AntiForgeryToken()
