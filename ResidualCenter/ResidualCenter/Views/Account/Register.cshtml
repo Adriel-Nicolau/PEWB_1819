@@ -1,4 +1,5 @@
 ﻿@model ResidualCenter.Models.RegisterViewModel
+
 @{
     ViewBag.Title = "Register";
 }
@@ -29,11 +30,8 @@
             @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "form-control" })
         </div>
     </div>
-    <div class="form-group">
-        <div class="col-md-offset-2 col-md-10">
-            <input type="submit" class="btn btn-default" value="Register" />
-        </div>
-    </div>
+    @Html.Partial("_RegisterPartial")
+    
 }
 
 @section Scripts {

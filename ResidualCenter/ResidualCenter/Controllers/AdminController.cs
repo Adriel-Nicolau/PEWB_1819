@@ -1,15 +1,11 @@
 ﻿using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
-using Microsoft.AspNet.Identity.Owin;
+using System.Data.Entity;
 using ResidualCenter.Models;
-using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Net;
-using System.Threading.Tasks;
-using System.Web;
 using System.Web.Mvc;
-using System.Web.Security;
+
 
 namespace ResidualCenter.Controllers
 {
@@ -17,9 +13,11 @@ namespace ResidualCenter.Controllers
     {
 
         ApplicationDbContext context;
+        ResidualCenterContext residual;
         public AdminController()
         {
             context = new ApplicationDbContext();
+            residual = new ResidualCenterContext();
         }
         // GET: Admin
         public ActionResult Index()
@@ -80,18 +78,10 @@ namespace ResidualCenter.Controllers
             }
             var role = context.Roles.Find(id);
             return View(role);
-           
+
 
         }
-      //  [HttpPost/*, ActionName("DeleteRole")*/]
-      //  //[ValidateAntiForgeryToken]
-      ////  [Authorize(Roles = "Pais, Administrador")]
-      //  public ActionResult DeleteRole(IdentityRole Role)
-      //  {
-      //      context.Roles.Remove(Role);
-      //      context.SaveChanges();
-      //      return RedirectToAction("ListRole");
-      //  }
+
         [HttpPost, ActionName("DeleteRole")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(string id)
@@ -101,8 +91,113 @@ namespace ResidualCenter.Controllers
             context.SaveChanges();
             return RedirectToAction("ListRole");
         }
+
+        // GET: Entities
+        public ActionResult ListEntities()
+        {
+            var entities = residual.Entities.Include(e => e.Location);
+            return View(entities.ToList());
+        }
+
+        //// GET: Entities/Details/5
+        //public ActionResult Details(int? id)
+        //{
+        //    if (id == null)
+        //    {
+        //        return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+        //    }
+        //    Entity entity = db.Entities.Find(id);
+        //    if (entity == null)
+        //    {
+        //        return HttpNotFound();
+        //    }
+        //    return View(entity);
+        //}
+
+        //// GET: Entities/Create
+        //public ActionResult Create()
+        //{
+        //    ViewBag.LocationID = new SelectList(db.Locations, "ID", "Name");
+        //    return View();
+        //}
+
+        //// POST: Entities/Create
+        //// To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+        //// more details see https://go.microsoft.com/fwlink/?LinkId=317598.
+        //[HttpPost]
+        //[ValidateAntiForgeryToken]
+        //public ActionResult Create([Bind(Include = "ID,Email,Name,Contact,BirthDate,Gender,Adress,LocationID")] Entity entity)
+        //{
+        //    if (ModelState.IsValid)
+        //    {
+        //        db.Entities.Add(entity);
+        //        db.SaveChanges();
+        //        return RedirectToAction("Index");
+        //    }
+
+        //    ViewBag.LocationID = new SelectList(db.Locations, "ID", "Name", entity.LocationID);
+        //    return View(entity);
+        //}
+
+        //// GET: Entities/Edit/5
+        //public ActionResult Edit(int? id)
+        //{
+        //    if (id == null)
+        //    {
+        //        return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+        //    }
+        //    Entity entity = db.Entities.Find(id);
+        //    if (entity == null)
+        //    {
+        //        return HttpNotFound();
+        //    }
+        //    ViewBag.LocationID = new SelectList(db.Locations, "ID", "Name", entity.LocationID);
+        //    return View(entity);
+        //}
+
+        //// POST: Entities/Edit/5
+        //// To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+        //// more details see https://go.microsoft.com/fwlink/?LinkId=317598.
+        //[HttpPost]
+        //[ValidateAntiForgeryToken]
+        //public ActionResult Edit([Bind(Include = "ID,Email,Name,Contact,BirthDate,Gender,Adress,LocationID")] Entity entity)
+        //{
+        //    if (ModelState.IsValid)
+        //    {
+        //        db.Entry(entity).State = EntityState.Modified;
+        //        db.SaveChanges();
+        //        return RedirectToAction("Index");
+        //    }
+        //    ViewBag.LocationID = new SelectList(db.Locations, "ID", "Name", entity.LocationID);
+        //    return View(entity);
+        //}
+
+        //// GET: Entities/Delete/5
+        //public ActionResult Delete(int? id)
+        //{
+        //    if (id == null)
+        //    {
+        //        return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+        //    }
+        //    Entity entity = db.Entities.Find(id);
+        //    if (entity == null)
+        //    {
+        //        return HttpNotFound();
+        //    }
+        //    return View(entity);
+        //}
+
+        //// POST: Entities/Delete/5
+        //[HttpPost, ActionName("Delete")]
+        //[ValidateAntiForgeryToken]
+        //public ActionResult DeleteConfirmed(int id)
+        //{
+        //    Entity entity = db.Entities.Find(id);
+        //    db.Entities.Remove(entity);
+        //    db.SaveChanges();
+        //    return RedirectToAction("Index");
+        //}
+
     }
-
-
 
 }
