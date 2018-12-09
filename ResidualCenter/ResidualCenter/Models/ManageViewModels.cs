@@ -77,7 +77,33 @@ namespace ResidualCenter.Models
         [Display(Name = "Phone Number")]
         public string PhoneNumber { get; set; }
     }
+    public class RegisterEmployeeViewModel
+    {
+        [Required]
+        [EmailAddress]
+        [Display(Name = "Email")]
+        public string Email { get; set; }
 
+        [Required]
+        [StringLength(100, ErrorMessage = "The {0} must be at least {2} characters long.", MinimumLength = 6)]
+        [DataType(DataType.Password)]
+        [Display(Name = "Password")]
+        public string Password { get; set; }
+
+        [DataType(DataType.Password)]
+        [Display(Name = "Confirm password")]
+        [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
+        public string ConfirmPassword { get; set; }
+
+        [Required]
+        [Display(Name = "Nome Completo")]
+        [StringLength(50, ErrorMessage = "Nome não pode ter mais que 50 caracteres")]
+        public string Name { get; set; }
+
+        [Required]
+        [Display(Name = "Contacto")]
+        public int Contact { get; set; }
+  }
     public class ConfigureTwoFactorViewModel
     {
         public string SelectedProvider { get; set; }

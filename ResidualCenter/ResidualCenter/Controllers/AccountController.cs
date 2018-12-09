@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using ResidualCenter.Models;
@@ -141,6 +142,7 @@ namespace ResidualCenter.Controllers
         [AllowAnonymous]
         public ActionResult Register()
         {
+            var teste = SignInManager.GetVerifiedUserId();
             ViewBag.LocationID = new SelectList(residual.Locations, "ID", "Name");
             return View();
         }
@@ -150,8 +152,10 @@ namespace ResidualCenter.Controllers
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Register(RegisterViewModel model, Entity entityModel)
+        public async Task<ActionResult> Register(RegisterViewModel model)
         {
+           // var user = await UserManager.FindByIdAsync(User.Identity.GetUserId()); GET USER LOOGED IN .Roles can get the role like this not optimal
+         
             if (ModelState.IsValid)
             {
                 var userAsp = new ApplicationUser { UserName = model.Email, Email = model.Email };
@@ -159,9 +163,22 @@ namespace ResidualCenter.Controllers
                 if (result.Succeeded)
                 {
                     await SignInManager.SignInAsync(userAsp, isPersistent: false, rememberBrowser: false);
+                   
+                   // UserManager.IsInRole(userAsp.Id, "admin");
                     await UserManager.AddToRoleAsync(userAsp.Id, "Client");
-                    entityModel.Email = model.Email;
-                    residual.Entities.Add(entityModel);
+                    Entity entity = new Entity
+                    {
+                        Email = model.Email,
+                        UserId = userAsp.Id,
+                        Name = model.Name,
+                        LocationID = model.LocationID,
+                        BirthDate = model.BirthDate,
+                        Adress = model.Adress,
+                        Contact = model.Contact,
+                        Gender = model.Gender
+                    };
+
+                    residual.Entities.Add(entity);
                     residual.SaveChanges();
 
                     // For more information on how to enable account confirmation and password reset please visit https://go.microsoft.com/fwlink/?LinkID=320771

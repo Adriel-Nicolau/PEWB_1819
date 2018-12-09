@@ -4,10 +4,14 @@ using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using ResidualCenter.Models;
 
+using System.Data.Entity;
+
+using System.Net;
 namespace ResidualCenter.Controllers
 {
     [Authorize]
@@ -15,9 +19,13 @@ namespace ResidualCenter.Controllers
     {
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
+        ApplicationDbContext context;
+        ResidualCenterContext residual;
 
         public ManageController()
         {
+            context = new ApplicationDbContext();
+            residual = new ResidualCenterContext();
         }
 
         public ManageController(ApplicationUserManager userManager, ApplicationSignInManager signInManager)
@@ -32,9 +40,9 @@ namespace ResidualCenter.Controllers
             {
                 return _signInManager ?? HttpContext.GetOwinContext().Get<ApplicationSignInManager>();
             }
-            private set 
-            { 
-                _signInManager = value; 
+            private set
+            {
+                _signInManager = value;
             }
         }
 
@@ -52,27 +60,27 @@ namespace ResidualCenter.Controllers
 
         //
         // GET: /Manage/Index
-        public async Task<ActionResult> Index(ManageMessageId? message)
+        public ActionResult Index(ManageMessageId? message)
         {
-            ViewBag.StatusMessage =
-                message == ManageMessageId.ChangePasswordSuccess ? "Your password has been changed."
-                : message == ManageMessageId.SetPasswordSuccess ? "Your password has been set."
-                : message == ManageMessageId.SetTwoFactorSuccess ? "Your two-factor authentication provider has been set."
-                : message == ManageMessageId.Error ? "An error has occurred."
-                : message == ManageMessageId.AddPhoneSuccess ? "Your phone number was added."
-                : message == ManageMessageId.RemovePhoneSuccess ? "Your phone number was removed."
-                : "";
+            //ViewBag.StatusMessage =
+            //    message == ManageMessageId.ChangePasswordSuccess ? "Your password has been changed."
+            //    : message == ManageMessageId.SetPasswordSuccess ? "Your password has been set."
+            //    : message == ManageMessageId.SetTwoFactorSuccess ? "Your two-factor authentication provider has been set."
+            //    : message == ManageMessageId.Error ? "An error has occurred."
+            //    : message == ManageMessageId.AddPhoneSuccess ? "Your phone number was added."
+            //    : message == ManageMessageId.RemovePhoneSuccess ? "Your phone number was removed."
+            //    : "";
 
-            var userId = User.Identity.GetUserId();
-            var model = new IndexViewModel
-            {
-                HasPassword = HasPassword(),
-                PhoneNumber = await UserManager.GetPhoneNumberAsync(userId),
-                TwoFactor = await UserManager.GetTwoFactorEnabledAsync(userId),
-                Logins = await UserManager.GetLoginsAsync(userId),
-                BrowserRemembered = await AuthenticationManager.TwoFactorBrowserRememberedAsync(userId)
-            };
-            return View(model);
+            //var userId = User.Identity.GetUserId();
+            //var model = new IndexViewModel
+            //{
+            //    HasPassword = HasPassword(),
+            //    PhoneNumber = await UserManager.GetPhoneNumberAsync(userId),
+            //    TwoFactor = await UserManager.GetTwoFactorEnabledAsync(userId),
+            //    Logins = await UserManager.GetLoginsAsync(userId),
+            //    BrowserRemembered = await AuthenticationManager.TwoFactorBrowserRememberedAsync(userId)
+            //};
+            return View();
         }
 
         //
@@ -332,8 +340,213 @@ namespace ResidualCenter.Controllers
 
             base.Dispose(disposing);
         }
+        /// <AdminStuff>
+        /// 
+        /// </summary>
 
-#region Helpers
+
+
+        public ActionResult ListRole()
+        {
+
+            return View(context.Roles.ToList());
+        }
+        public ActionResult CreateRole()
+        {
+            var Role = new IdentityRole();
+            return View(Role);
+        }
+        [HttpPost]
+        public ActionResult CreateRole(IdentityRole Role)
+        {
+            context.Roles.Add(Role);
+            context.SaveChanges();
+            return RedirectToAction("ListRole");
+        }
+
+        //AQUI recebo um id e encontro a role que pertence a role usando Roles.* pode ter o mesmo efeito
+        //       public ActionResult EditRole(int? id)
+        //       {
+
+        //           var roles = context.Roles.ToList();
+        //           roles.ForEach((x) =>
+        //              {
+        //                  if (x.Id.Any())
+        //                  {
+        //                      if (x.Id.Equals(id))
+        //                      {
+        //                          var role = roles.FirstOrDefault(r => r.Id == x.Id);
+        //                          if (role != null)
+        //                              ViewBag.role = role;
+
+
+        //                      }
+
+
+        //                  }
+        //              });
+        //return View();
+
+        //       }
+
+        public ActionResult DeleteRole(string id)
+        {
+            if (id == null)
+            {
+                //return 
+            }
+            var role = context.Roles.Find(id);
+            return View(role);
+
+
+        }
+
+        [HttpPost, ActionName("DeleteRole")]
+        [ValidateAntiForgeryToken]
+        public ActionResult DeleteConfirmed(string id)
+        {
+            var role = context.Roles.Find(id);
+            context.Roles.Remove(role);
+            context.SaveChanges();
+            return RedirectToAction("ListRole");
+        }
+
+        // GET: Entities
+        public ActionResult ListEntities()
+        {
+            var entities = residual.Entities.Include(e => e.Location);
+            return View(entities.ToList());
+        }
+
+        // GET: Entities/Details/5
+        public ActionResult DetailsEntity(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Entity entity = residual.Entities.Find(id);
+            if (entity == null)
+            {
+                return HttpNotFound();
+            }
+            return View(entity);
+        }
+
+
+
+        // GET: Manage/Delete/5
+        public ActionResult DeleteEntity(string id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Entity entity = residual.Entities.Where(x=> x.UserId== id).FirstOrDefault();
+            if (entity == null)
+            {
+                return HttpNotFound();
+            }
+            return View(entity);
+        }
+
+
+        // POST: Entities/Delete/5
+        [HttpPost, ActionName("DeleteEntity")]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> DeleteConfirmedEntity(string id)
+        {
+            
+            if (ModelState.IsValid)
+            {
+                if (id == null)
+                {
+                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                }
+
+                var user = await _userManager.FindByIdAsync(id);
+                var logins = user.Logins;
+                var rolesForUser = await _userManager.GetRolesAsync(id);
+
+                using (var transaction = context.Database.BeginTransaction())
+                {
+                    foreach (var login in logins.ToList())
+                    {
+                        await _userManager.RemoveLoginAsync(login.UserId, new UserLoginInfo(login.LoginProvider, login.ProviderKey));
+                    }
+
+                    if (rolesForUser.Count() > 0)
+                    {
+                        foreach (var item in rolesForUser.ToList())
+                        {
+                            // item should be the name of the role
+                            var result = await _userManager.RemoveFromRoleAsync(user.Id, item);
+                        }
+                    }
+
+                    await _userManager.DeleteAsync(user);
+                    transaction.Commit();
+                }
+
+                return RedirectToAction("Index");
+            }
+            else
+            {
+                return View();
+            }
+        }
+        [AllowAnonymous]
+        public ActionResult RegisterEmployee()
+        {
+           
+            ViewBag.LocationID = new SelectList(residual.Locations, "ID", "Name");
+            return View();
+        }
+
+        //
+        // POST: /Account/Register
+        [HttpPost]
+        [AllowAnonymous]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> RegisterEmployee(RegisterEmployeeViewModel model)
+        {
+            var teste = SignInManager.GetVerifiedUserId();
+            if (ModelState.IsValid)
+            {
+                var userAsp = new ApplicationUser { UserName = model.Email, Email = model.Email };
+                var result = await UserManager.CreateAsync(userAsp, model.Password);
+                if (result.Succeeded)
+                {
+                   
+                    // UserManager.IsInRole(userAsp.Id, "admin");
+                    await UserManager.AddToRoleAsync(userAsp.Id, "Employee");
+                    Entity entity = new Entity
+                    {
+                        Email = model.Email,
+                        UserId = userAsp.Id,
+                        Name = model.Name,                     
+                        Contact = model.Contact,
+                        
+                    };
+
+                    residual.Entities.Add(entity);
+                    residual.SaveChanges();
+
+                    // For more information on how to enable account confirmation and password reset please visit https://go.microsoft.com/fwlink/?LinkID=320771
+                    // Send an email with this link
+                    // string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
+                    // var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
+                    // await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
+
+                    return RedirectToAction("ListEntity", "Manage");
+                }
+                AddErrors(result);
+            }
+
+            // If we got this far, something failed, redisplay form
+            return View(model);
+        }
+        #region Helpers
         // Used for XSRF protection when adding external logins
         private const string XsrfKey = "XsrfId";
 
@@ -384,6 +597,6 @@ namespace ResidualCenter.Controllers
             Error
         }
 
-#endregion
+        #endregion
     }
 }

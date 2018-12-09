@@ -36,30 +36,7 @@ namespace ResidualCenter.Controllers
             return View(entity);
         }
 
-        // GET: Entities/Create
-        public ActionResult Create()
-        {
-            ViewBag.LocationID = new SelectList(db.Locations, "ID", "Name");
-            return View();
-        }
-
-        // POST: Entities/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ID,Email,Name,Contact,BirthDate,Gender,Adress,LocationID")] Entity entity)
-        {
-            if (ModelState.IsValid)
-            {
-                db.Entities.Add(entity);
-                db.SaveChanges();
-                return RedirectToAction("Index");
-            }
-
-            ViewBag.LocationID = new SelectList(db.Locations, "ID", "Name", entity.LocationID);
-            return View(entity);
-        }
+        
 
         // GET: Entities/Edit/5
         public ActionResult Edit(int? id)
@@ -94,31 +71,7 @@ namespace ResidualCenter.Controllers
             return View(entity);
         }
 
-        // GET: Entities/Delete/5
-        public ActionResult Delete(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Entity entity = db.Entities.Find(id);
-            if (entity == null)
-            {
-                return HttpNotFound();
-            }
-            return View(entity);
-        }
-
-        // POST: Entities/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
-        {
-            Entity entity = db.Entities.Find(id);
-            db.Entities.Remove(entity);
-            db.SaveChanges();
-            return RedirectToAction("Index");
-        }
+      
 
         protected override void Dispose(bool disposing)
         {

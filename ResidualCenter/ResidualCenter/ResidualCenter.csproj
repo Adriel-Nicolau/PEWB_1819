@@ -193,7 +193,6 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
-    <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\EntitiesController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
@@ -208,9 +207,22 @@
     <Compile Include="Migrations\201812011224487_init2.Designer.cs">
       <DependentUpon>201812011224487_init2.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201812022223340_1.cs" />
+    <Compile Include="Migrations\201812022223340_1.Designer.cs">
+      <DependentUpon>201812022223340_1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201812062157365_userEntity.cs" />
+    <Compile Include="Migrations\201812062157365_userEntity.Designer.cs">
+      <DependentUpon>201812062157365_userEntity.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201812070013106_noNullFK.cs" />
+    <Compile Include="Migrations\201812070013106_noNullFK.Designer.cs">
+      <DependentUpon>201812070013106_noNullFK.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\EntityModel\Entity.cs" />
+    <Compile Include="Models\EntityViewModel.cs" />
     <Compile Include="Models\EquipmentModel\Equipment.cs" />
     <Compile Include="Models\EquipmentTypeModel\EquipmentType.cs" />
     <Compile Include="Models\IdentityModels.cs" />
@@ -312,10 +324,6 @@
     <Content Include="Views\Manage\VerifyPhoneNumber.cshtml" />
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
-    <Content Include="Views\Admin\CreateRole.cshtml" />
-    <Content Include="Views\Admin\Index.cshtml" />
-    <Content Include="Views\Admin\ListRole.cshtml" />
-    <Content Include="Views\Admin\DeleteRole.cshtml" />
     <Content Include="Scripts\umd\popper.min.js.map" />
     <Content Include="Scripts\umd\popper.js.map" />
     <Content Include="Scripts\umd\popper-utils.min.js.map" />
@@ -325,13 +333,19 @@
     <Content Include="Scripts\popper.js.map" />
     <Content Include="Scripts\popper-utils.min.js.map" />
     <Content Include="Scripts\popper-utils.js.map" />
-    <Content Include="Views\Admin\ListEntities.cshtml" />
     <Content Include="Views\Entities\Create.cshtml" />
     <Content Include="Views\Entities\Delete.cshtml" />
     <Content Include="Views\Entities\Details.cshtml" />
     <Content Include="Views\Entities\Edit.cshtml" />
     <Content Include="Views\Entities\Index.cshtml" />
     <Content Include="Views\Shared\_RegisterPartial.cshtml" />
+    <Content Include="Views\Manage\ListEntities.cshtml" />
+    <Content Include="Views\Manage\ListRole.cshtml" />
+    <Content Include="Views\Manage\DetailsEntity.cshtml" />
+    <Content Include="Views\Manage\DeleteRole.cshtml" />
+    <Content Include="Views\Manage\DeleteEntity.cshtml" />
+    <Content Include="Views\Manage\CreateRole.cshtml" />
+    <Content Include="Views\Manage\RegisterEmployee.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -347,6 +361,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201812011224487_init2.resx">
       <DependentUpon>201812011224487_init2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201812022223340_1.resx">
+      <DependentUpon>201812022223340_1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201812062157365_userEntity.resx">
+      <DependentUpon>201812062157365_userEntity.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201812070013106_noNullFK.resx">
+      <DependentUpon>201812070013106_noNullFK.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

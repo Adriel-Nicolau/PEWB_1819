@@ -34,14 +34,19 @@ namespace ResidualCenter.Models
         [Display(Name = "Endereço")]
         public string Adress { get; set; }
 
-        [Display(Name = "Região")]
+        [Required]
+        [ForeignKey("ApplicationUser")]
+        public string UserId { get; set; }
+       
+
         [Required]
         [ForeignKey("Location")]
+        [Display(Name = "Região")]
         public int LocationID { get; set; } // FK from locationModel
 
 
         public virtual Location Location { get; set; }
         public virtual ICollection<ServiceEntityRelational> ServiceEntities { get; set; }
-
+        public ApplicationUser ApplicationUser { get; set; }
     }
 }

@@ -4,16 +4,16 @@
 }
 
 <h2>Deletar Role</h2>
-<table style="width:400px"class="table table-bordered">
-    
+<table style="width:400px" class="table table-bordered">
+
     <thead class="thead-dark">
-    
+
         <tr>
-            <th  style="display:none;" scope="col">#</th>
-            <th scope="col" >Nome</th>
-            <th scope="col" >Opções</th>
+            <th style="display:none;" scope="col">#</th>
+            <th scope="col">Nome</th>
+            <th scope="col">Opções</th>
         </tr>
-    </thead >
+    </thead>
 
     <tr>
         <td align="center" style="display:none;"> @Html.DisplayFor(model => model.Id)</td>
@@ -27,14 +27,14 @@
                 @Html.AntiForgeryToken()
 
                 <div class="form-actions no-color">
-                    <input type="submit" class="btn btn-danger" value="Delete"/>
+                    <input type="submit" class="btn btn-danger" value="Delete" />
 
                 </div>
             }
-            </td>
+        </td>
     </tr>
 
 
 
 </table>
- @Html.ActionLink("Voltar", "ListRole")
+@Html.ActionLink("Voltar", "ListRole")

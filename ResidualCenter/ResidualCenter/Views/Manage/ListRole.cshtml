@@ -5,7 +5,7 @@
 }
 <h2>Lista de Roles</h2>
 <!-- no onclick vou para outra pagina Argumentos(Action,Controller) -->
-<button type="button" class="btn btn-primary" onclick=" window.location.href = '@Url.Action("CreateRole", "Admin")';">Criar Role</button>
+<button type="button" class="btn btn-primary" onclick=" window.location.href = '@Url.Action("CreateRole", "Manage")';">Criar Role</button>
 <br />
 <br />
 <br />
@@ -20,9 +20,9 @@
     @foreach (var item in Model)
     {
         <tr>
-            <th  align="center"scope="row"> @Html.DisplayFor(modelItem => item.Id)</th>
+            <th align="center" scope="row"> @Html.DisplayFor(modelItem => item.Id)</th>
 
-            <td  align="center">
+            <td align="center">
                 @Html.DisplayFor(modelItem => item.Name)
             </td>
             <td align="center">
