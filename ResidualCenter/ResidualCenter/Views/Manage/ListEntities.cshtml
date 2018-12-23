@@ -9,7 +9,20 @@
 <p>
     @Html.ActionLink("Create New", "Create")
 </p>
-<table class="table">
+
+
+<ul class="nav nav-tabs" id="myTab" role="tablist">
+    <li class="nav-item">
+        <a class="nav-link active" id="employee-tab" data-toggle="tab" href="#employee" role="tab" aria-controls="employee" aria-selected="true">Employees</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" id="client-tab" data-toggle="tab" href="#client" role="tab" aria-controls="client" aria-selected="false">Clients</a>
+    </li>
+    
+</ul>
+<div class="tab-content" id="myTabContent">
+    <div class="tab-pane fade show active" id="employee" role="tabpanel" aria-labelledby="employee-tab">
+    <table class="table">
     <tr>
         <th>
             @Html.DisplayNameFor(model => model.Location.Name)
@@ -37,6 +50,8 @@
 
     @foreach (var item in Model)
     {
+
+      if (ViewData[item.Email].Equals("Employee")) { 
         <tr>
             <td>
                 @Html.DisplayFor(modelItem => item.Location.Name)
@@ -60,11 +75,81 @@
                 @Html.DisplayFor(modelItem => item.Adress)
             </td>
             <td>
-                @*@Html.ActionLink("Edit", "Edit", new { id = item.ID }) |*@
-                @Html.ActionLink("Details", "DetailsEntity", new { id = item.ID }) |
+               
                 @Html.ActionLink("Delete", "DeleteEntity", new { id = item.UserId })
             </td>
         </tr>
+      }
     }
 
 </table>
+    </div>
+    <div class="tab-pane fade" id="client" role="tabpanel" aria-labelledby="client-tab">
+    <table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Location.Name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Email)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Contact)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.BirthDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Gender)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Adress)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+
+        if (ViewData[item.Email].Equals("Client"))
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Location.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Email)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Contact)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.BirthDate)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Gender)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Adress)
+                </td>
+                <td>
+                 
+                    @Html.ActionLink("Delete", "DeleteEntity", new { id = item.UserId })
+                </td>
+            </tr>
+        }
+    }
+
+</table>
+    </div>
+    <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">...</div>
+</div>
+
+
+

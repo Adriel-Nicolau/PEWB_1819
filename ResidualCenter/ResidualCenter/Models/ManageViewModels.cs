@@ -104,6 +104,7 @@ namespace ResidualCenter.Models
         [Display(Name = "Contacto")]
         public int Contact { get; set; }
   }
+    
     public class ConfigureTwoFactorViewModel
     {
         public string SelectedProvider { get; set; }

@@ -12,6 +12,8 @@ using ResidualCenter.Models;
 using System.Data.Entity;
 
 using System.Net;
+using System.Collections.Generic;
+
 namespace ResidualCenter.Controllers
 {
     [Authorize]
@@ -364,30 +366,7 @@ namespace ResidualCenter.Controllers
             return RedirectToAction("ListRole");
         }
 
-        //AQUI recebo um id e encontro a role que pertence a role usando Roles.* pode ter o mesmo efeito
-        //       public ActionResult EditRole(int? id)
-        //       {
-
-        //           var roles = context.Roles.ToList();
-        //           roles.ForEach((x) =>
-        //              {
-        //                  if (x.Id.Any())
-        //                  {
-        //                      if (x.Id.Equals(id))
-        //                      {
-        //                          var role = roles.FirstOrDefault(r => r.Id == x.Id);
-        //                          if (role != null)
-        //                              ViewBag.role = role;
-
-
-        //                      }
-
-
-        //                  }
-        //              });
-        //return View();
-
-        //       }
+      
 
         public ActionResult DeleteRole(string id)
         {
@@ -414,7 +393,18 @@ namespace ResidualCenter.Controllers
         // GET: Entities
         public ActionResult ListEntities()
         {
+            IList<String> rolesList = new List<String>();
+            ApplicationDbContext context = new ApplicationDbContext();
+            var userManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(context));
+           
+
             var entities = residual.Entities.Include(e => e.Location);
+            foreach (var item in entities)
+            {
+                var role = userManager.GetRoles(item.UserId).FirstOrDefault();
+                ViewData.Add(new KeyValuePair<string, object>(item.Email, role));
+            }
+         
             return View(entities.ToList());
         }
 
@@ -442,7 +432,8 @@ namespace ResidualCenter.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Entity entity = residual.Entities.Where(x=> x.UserId== id).FirstOrDefault();
+        
+        Entity entity = residual.Entities.Where(x=> x.UserId== id).FirstOrDefault();
             if (entity == null)
             {
                 return HttpNotFound();
@@ -454,47 +445,17 @@ namespace ResidualCenter.Controllers
         // POST: Entities/Delete/5
         [HttpPost, ActionName("DeleteEntity")]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> DeleteConfirmedEntity(string id)
+        public ActionResult DeleteConfirmedEntity(string id)
         {
-            
-            if (ModelState.IsValid)
-            {
-                if (id == null)
-                {
-                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-                }
 
-                var user = await _userManager.FindByIdAsync(id);
-                var logins = user.Logins;
-                var rolesForUser = await _userManager.GetRolesAsync(id);
+            ApplicationDbContext context = new ApplicationDbContext();
+            var userManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(context));
+            var user = userManager.FindById(id);
+            userManager.Delete(user);
 
-                using (var transaction = context.Database.BeginTransaction())
-                {
-                    foreach (var login in logins.ToList())
-                    {
-                        await _userManager.RemoveLoginAsync(login.UserId, new UserLoginInfo(login.LoginProvider, login.ProviderKey));
-                    }
-
-                    if (rolesForUser.Count() > 0)
-                    {
-                        foreach (var item in rolesForUser.ToList())
-                        {
-                            // item should be the name of the role
-                            var result = await _userManager.RemoveFromRoleAsync(user.Id, item);
-                        }
-                    }
-
-                    await _userManager.DeleteAsync(user);
-                    transaction.Commit();
-                }
-
-                return RedirectToAction("Index");
-            }
-            else
-            {
-                return View();
-            }
+            return View();
         }
+
         [AllowAnonymous]
         public ActionResult RegisterEmployee()
         {
