@@ -733,7 +733,112 @@ namespace ResidualCenter.Controllers
             residual.SaveChanges();
             return RedirectToAction("Index");
         }
+        //SERVICE STUFF
+        // GET: Services
+        public ActionResult ListServices()
+        {
+            var services = residual.Services.Include(s => s.ServiceType);
+            return View(services.ToList());
+        }
 
+        // GET: Services/Details/5
+        public ActionResult DetailsService(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Service service = residual.Services.Find(id);
+            if (service == null)
+            {
+                return HttpNotFound();
+            }
+            return View(service);
+        }
+
+        // GET: Services/Create
+        public ActionResult CreateService()
+        {
+            ViewBag.ServiceTypeID = new SelectList(residual.ServicesTypes, "ID", "Name");
+            return View();
+        }
+
+        // POST: Services/Create
+        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult CreateService([Bind(Include = "ID,ServiceTypeID,Description")] Service service)
+        {
+            if (ModelState.IsValid)
+            {
+                residual.Services.Add(service);
+                residual.SaveChanges();
+                return RedirectToAction("Index");
+            }
+
+            ViewBag.ServiceTypeID = new SelectList(residual.ServicesTypes, "ID", "Name", service.ServiceTypeID);
+            return View(service);
+        }
+
+        // GET: Services/Edit/5
+        public ActionResult EditService(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Service service = residual.Services.Find(id);
+            if (service == null)
+            {
+                return HttpNotFound();
+            }
+            ViewBag.ServiceTypeID = new SelectList(residual.ServicesTypes, "ID", "Name", service.ServiceTypeID);
+            return View(service);
+        }
+
+        // POST: Services/Edit/5
+        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult EditService([Bind(Include = "ID,ServiceTypeID,Description")] Service service)
+        {
+            if (ModelState.IsValid)
+            {
+                residual.Entry(service).State = EntityState.Modified;
+                residual.SaveChanges();
+                return RedirectToAction("Index");
+            }
+            ViewBag.ServiceTypeID = new SelectList(residual.ServicesTypes, "ID", "Name", service.ServiceTypeID);
+            return View(service);
+        }
+
+        // GET: Services/Delete/5
+        public ActionResult DeleteService(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Service service = residual.Services.Find(id);
+            if (service == null)
+            {
+                return HttpNotFound();
+            }
+            return View(service);
+        }
+
+        // POST: Services/Delete/5
+        [HttpPost, ActionName("DeleteService")]
+        [ValidateAntiForgeryToken]
+        public ActionResult DeleteConfirmedService(int id)
+        {
+            Service service = residual.Services.Find(id);
+            residual.Services.Remove(service);
+            residual.SaveChanges();
+            return RedirectToAction("Index");
+        }
 
 
 

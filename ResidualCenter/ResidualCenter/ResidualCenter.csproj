@@ -195,6 +195,7 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\ServicesController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -374,6 +375,16 @@
     <Content Include="Views\Manage\EditServiceType.cshtml" />
     <Content Include="Views\Manage\CreateServiceType.cshtml" />
     <Content Include="Views\Manage\ListServiceType.cshtml" />
+    <Content Include="Views\Services\Create.cshtml" />
+    <Content Include="Views\Services\Delete.cshtml" />
+    <Content Include="Views\Services\Details.cshtml" />
+    <Content Include="Views\Services\Edit.cshtml" />
+    <Content Include="Views\Services\Index.cshtml" />
+    <Content Include="Views\Manage\DeleteService.cshtml" />
+    <Content Include="Views\Manage\EditService.cshtml" />
+    <Content Include="Views\Manage\CreateService.cshtml" />
+    <Content Include="Views\Manage\ListServices.cshtml" />
+    <Content Include="Views\Manage\DetailsService.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
