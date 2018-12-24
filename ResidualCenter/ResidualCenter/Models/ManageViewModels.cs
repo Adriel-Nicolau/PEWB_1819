@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using Microsoft.AspNet.Identity;
 using Microsoft.Owin.Security;
@@ -79,6 +80,7 @@ namespace ResidualCenter.Models
     }
     public class RegisterEmployeeViewModel
     {
+    
         [Required]
         [EmailAddress]
         [Display(Name = "Email")]
@@ -103,8 +105,49 @@ namespace ResidualCenter.Models
         [Required]
         [Display(Name = "Contacto")]
         public int Contact { get; set; }
-  }
-    
+
+        [Required]
+        [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
+        [Display(Name = "Data de Nascimento")]
+        public DateTime BirthDate { get; set; }
+
+        [Display(Name = "Genero")]
+        //vai ser um picker com as opçoes 
+        public string Gender { get; set; }
+        [Required]
+        [Display(Name = "Endereço")]
+        public string Adress { get; set; }
+
+        [Required]
+        [Display(Name = "Região")]
+        public int LocationID { get; set; } // FK from locationModel
+
+
+    }
+    public class AddEquipmentViewModel
+    {
+
+        [Required]
+        [Display(Name = "Nome")]
+        [StringLength(50, ErrorMessage = "Nome não pode ter mais que 50 caracteres")]
+        public string Name { get; set; }
+
+        [Required]
+        [Display(Name = "Quantidade")]
+        public int Quantity { get; set; }
+
+        [Required]
+        [Display(Name = "Tipo")]
+        public int EquipmentTypeID { get; set; } // FK from locationModel
+        [Required]
+        [Display(Name = "Estado")]
+        public int EquipmentStateID { get; set; } // FK from locationModel
+
+        [Required]
+        [Display(Name = "Tipo de Serviço")]
+        public int ServiceTypeID { get; set; } // FK from locationModel
+    }
     public class ConfigureTwoFactorViewModel
     {
         public string SelectedProvider { get; set; }

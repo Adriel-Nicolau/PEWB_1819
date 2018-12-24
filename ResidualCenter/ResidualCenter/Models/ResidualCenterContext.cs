@@ -18,6 +18,12 @@ namespace ResidualCenter.Models
         public virtual DbSet<Service> Services { get; set; }
         public virtual DbSet<ServiceType> ServicesTypes { get; set; }
         public virtual DbSet<Equipment> Equipments { get; set; }
+        public virtual DbSet<EquipmentType> EquipmentTypes { get; set; }
+        public virtual DbSet<EquipmentState> EquipmentStates { get; set; }
+        public virtual DbSet<ServiceRequest> ServiceRequests { get; set; }
+        public virtual DbSet<ResidueType> ResidueTypes { get; set; }
+
+
 
     }
 }

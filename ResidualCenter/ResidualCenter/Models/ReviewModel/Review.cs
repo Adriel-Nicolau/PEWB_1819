@@ -16,8 +16,8 @@ namespace ResidualCenter.Models
         public int EntityID { get; set; }
 
         [Required]
-        [ForeignKey("ServiceEntityRelational")]
-        public int ServiceEntityRelationalID { get; set; }
+        [ForeignKey("ServiceRequest")]
+        public int ServiceRequestID { get; set; }
 
         public string Content { get; set; }
         public DateTime CreationDate { get; set; }
@@ -26,7 +26,7 @@ namespace ResidualCenter.Models
 
 
         public virtual Entity Entity { get; set; }
-        public virtual ServiceEntityRelational ServiceEntityRelational { get; set; }
+        public virtual ServiceRequest ServiceRequest { get; set; }
 
     }
 }

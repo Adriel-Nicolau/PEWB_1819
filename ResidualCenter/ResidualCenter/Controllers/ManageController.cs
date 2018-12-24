@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Globalization;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
@@ -366,7 +368,7 @@ namespace ResidualCenter.Controllers
             return RedirectToAction("ListRole");
         }
 
-      
+
 
         public ActionResult DeleteRole(string id)
         {
@@ -393,10 +395,10 @@ namespace ResidualCenter.Controllers
         // GET: Entities
         public ActionResult ListEntities()
         {
-            IList<String> rolesList = new List<String>();
-            ApplicationDbContext context = new ApplicationDbContext();
+
+            //  ApplicationDbContext context = new ApplicationDbContext();
             var userManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(context));
-           
+
 
             var entities = residual.Entities.Include(e => e.Location);
             foreach (var item in entities)
@@ -404,7 +406,7 @@ namespace ResidualCenter.Controllers
                 var role = userManager.GetRoles(item.UserId).FirstOrDefault();
                 ViewData.Add(new KeyValuePair<string, object>(item.Email, role));
             }
-         
+
             return View(entities.ToList());
         }
 
@@ -432,8 +434,8 @@ namespace ResidualCenter.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-        
-        Entity entity = residual.Entities.Where(x=> x.UserId== id).FirstOrDefault();
+
+            Entity entity = residual.Entities.Where(x => x.UserId == id).FirstOrDefault();
             if (entity == null)
             {
                 return HttpNotFound();
@@ -442,13 +444,13 @@ namespace ResidualCenter.Controllers
         }
 
 
-        // POST: Entities/Delete/5
+        // POST: Entities/Delete/
         [HttpPost, ActionName("DeleteEntity")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmedEntity(string id)
         {
 
-            ApplicationDbContext context = new ApplicationDbContext();
+            //   ApplicationDbContext context = new ApplicationDbContext();
             var userManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(context));
             var user = userManager.FindById(id);
             userManager.Delete(user);
@@ -459,7 +461,7 @@ namespace ResidualCenter.Controllers
         [AllowAnonymous]
         public ActionResult RegisterEmployee()
         {
-           
+
             ViewBag.LocationID = new SelectList(residual.Locations, "ID", "Name");
             return View();
         }
@@ -471,23 +473,27 @@ namespace ResidualCenter.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> RegisterEmployee(RegisterEmployeeViewModel model)
         {
-            var teste = SignInManager.GetVerifiedUserId();
+
             if (ModelState.IsValid)
             {
                 var userAsp = new ApplicationUser { UserName = model.Email, Email = model.Email };
                 var result = await UserManager.CreateAsync(userAsp, model.Password);
                 if (result.Succeeded)
                 {
-                   
-                    // UserManager.IsInRole(userAsp.Id, "admin");
+
+
                     await UserManager.AddToRoleAsync(userAsp.Id, "Employee");
                     Entity entity = new Entity
                     {
                         Email = model.Email,
                         UserId = userAsp.Id,
-                        Name = model.Name,                     
+                        Name = model.Name,
+                        LocationID = model.LocationID,
+                        BirthDate = model.BirthDate,
+                        Adress = model.Adress,
                         Contact = model.Contact,
-                        
+                        Gender = model.Gender
+
                     };
 
                     residual.Entities.Add(entity);
@@ -499,7 +505,7 @@ namespace ResidualCenter.Controllers
                     // var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
                     // await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
 
-                    return RedirectToAction("ListEntity", "Manage");
+                    return RedirectToAction("ListEntities", "Manage");
                 }
                 AddErrors(result);
             }
@@ -507,6 +513,230 @@ namespace ResidualCenter.Controllers
             // If we got this far, something failed, redisplay form
             return View(model);
         }
+
+        // GET: Manage/Equipments
+        public ActionResult ListEquipments()
+        {
+            var equipments = residual.Equipments.Include(e => e.EquipmentState).Include(e => e.EquipmentType).Include(e => e.ServiceType);
+            return View(equipments.ToList());
+        }
+
+
+        // GET: Manage/Create
+        public ActionResult AddEquipment()
+        {
+            ViewBag.EquipmentStateID = new SelectList(residual.EquipmentStates, "ID", "Name");
+            ViewBag.EquipmentTypeID = new SelectList(residual.EquipmentTypes, "ID", "Name");
+            ViewBag.ServiceTypeID = new SelectList(residual.ServicesTypes, "ID", "Name");
+            return View();
+        }
+
+
+        [HttpPost]
+        public ActionResult AddEquipment(AddEquipmentViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                for (int i = 0; i < model.Quantity; i++)
+                {
+                    Equipment equipment = new Equipment
+                    {
+                        EquipmentTypeID = model.EquipmentTypeID,
+                        EquipmentStateID = model.EquipmentStateID,
+                        ServiceTypeID = model.ServiceTypeID,
+                        Name = model.Name,
+
+
+                    };
+                    residual.Equipments.Add(equipment);
+                }
+
+
+
+                residual.SaveChanges();
+
+
+                return RedirectToAction("ListEquipments", "Manage");
+
+            }
+            return RedirectToAction("Index");
+        }
+        // POST: Equipment
+        public ActionResult AddEquipmentType()
+        {
+            var equipmentType = new EquipmentType();
+            return View(equipmentType);
+        }
+        [HttpPost]
+        public ActionResult AddEquipmentType(EquipmentType equipmentType)
+        {
+
+            residual.EquipmentTypes.Add(equipmentType);
+            residual.SaveChanges();
+            return RedirectToAction("ListEquipments", "Manage");
+
+        } // POST: Equipment
+        public ActionResult AddEquipmentState()
+        {
+            var equipmentState = new EquipmentState();
+            return View(equipmentState);
+        }
+        [HttpPost]
+        public ActionResult AddEquipmentState(EquipmentState equipmentState)
+        {
+
+            residual.EquipmentStates.Add(equipmentState);
+            residual.SaveChanges();
+            return RedirectToAction("ListEquipments", "Manage");
+
+        }
+
+        // GET: Equipments/Delete/5
+        public ActionResult DeleteEquipment(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Equipment equipment = residual.Equipments.Find(id);
+            if (equipment == null)
+            {
+                return HttpNotFound();
+            }
+            return View(equipment);
+        }
+
+        // POST: Equipments/Delete/5
+        [HttpPost, ActionName("DeleteEquipment")]
+        [ValidateAntiForgeryToken]
+        public ActionResult DeleteConfirmedEquipment(int id)
+        {
+            Equipment equipment = residual.Equipments.Find(id);
+            residual.Equipments.Remove(equipment);
+            residual.SaveChanges();
+            return RedirectToAction("Index");
+        }
+        // GET: Equipments/Edit/5
+        public ActionResult EditEquipment(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Equipment equipment = residual.Equipments.Find(id);
+            if (equipment == null)
+            {
+                return HttpNotFound();
+            }
+            ViewBag.EquipmentStateID = new SelectList(residual.EquipmentStates, "ID", "Name", equipment.EquipmentStateID);
+            ViewBag.EquipmentTypeID = new SelectList(residual.EquipmentTypes, "ID", "Name", equipment.EquipmentTypeID);
+            ViewBag.ServiceTypeID = new SelectList(residual.ServicesTypes, "ID", "Name", equipment.ServiceTypeID);
+            return View(equipment);
+        }
+
+        // POST: Equipments/Edit/5
+        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult EditEquipment([Bind(Include = "ID,EquipmentTypeID,EquipmentStateID,Name")] Equipment equipment)
+        {
+            if (ModelState.IsValid)
+            {
+                residual.Entry(equipment).State = EntityState.Modified;
+                residual.SaveChanges();
+                return RedirectToAction("Index");
+            }
+            ViewBag.EquipmentStateID = new SelectList(residual.EquipmentStates, "ID", "Name", equipment.EquipmentStateID);
+            ViewBag.EquipmentTypeID = new SelectList(residual.EquipmentTypes, "ID", "Name", equipment.EquipmentTypeID);
+            return View(equipment);
+        }
+        //SERVICE TYPE STUFF
+        public ActionResult ListServiceType()
+        {
+            return View(residual.ServicesTypes.ToList());
+        }
+
+        // GET: Manage/Create
+        public ActionResult CreateServiceType()
+        {
+            return View();
+        }
+        // POST: Manage/Create
+        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult CreateServiceType([Bind(Include = "ID,Name")] ServiceType serviceType)
+        {
+            if (ModelState.IsValid)
+            {
+                residual.ServicesTypes.Add(serviceType);
+                residual.SaveChanges();
+                return RedirectToAction("Index");
+            }
+
+            return View(serviceType);
+        }
+        // GET: Manage/Edit/
+        public ActionResult EditServiceType(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            ServiceType serviceType = residual.ServicesTypes.Find(id);
+            if (serviceType == null)
+            {
+                return HttpNotFound();
+            }
+            return View(serviceType);
+        }
+        // POST: Manage/Edit/
+        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult EditServiceType([Bind(Include = "ID,Name")] ServiceType serviceType)
+        {
+            if (ModelState.IsValid)
+            {
+                residual.Entry(serviceType).State = EntityState.Modified;
+                residual.SaveChanges();
+                return RedirectToAction("Index");
+            }
+            return View(serviceType);
+        }
+
+        // GET: Manage/Delete/5
+        public ActionResult DeleteServiceType(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            ServiceType serviceType = residual.ServicesTypes.Find(id);
+            if (serviceType == null)
+            {
+                return HttpNotFound();
+            }
+            return View(serviceType);
+        }
+
+        // POST: Manage/Delete/5
+        [HttpPost, ActionName("DeleteServiceType")]
+        [ValidateAntiForgeryToken]
+        public ActionResult DeleteConfirmedServiceType(int id)
+        {
+            ServiceType serviceType = residual.ServicesTypes.Find(id);
+            residual.ServicesTypes.Remove(serviceType);
+            residual.SaveChanges();
+            return RedirectToAction("Index");
+        }
+
+
+
+
         #region Helpers
         // Used for XSRF protection when adding external logins
         private const string XsrfKey = "XsrfId";

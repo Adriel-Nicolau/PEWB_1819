@@ -17,7 +17,7 @@ namespace ResidualCenter.Models
         public string Description { get; set; }
 
         public virtual ServiceType ServiceType { get; set; }
-        public virtual ICollection<ServiceEntityRelational> ServiceEntities { get; set; }
-        public virtual ICollection<Equipment> Equipments { get; set; }
+
+      
     }
 }

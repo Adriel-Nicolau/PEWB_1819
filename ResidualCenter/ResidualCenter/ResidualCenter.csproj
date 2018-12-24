@@ -218,18 +218,48 @@
     <Compile Include="Migrations\201812070013106_noNullFK.Designer.cs">
       <DependentUpon>201812070013106_noNullFK.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201812231900172_equipmentTable.cs" />
+    <Compile Include="Migrations\201812231900172_equipmentTable.Designer.cs">
+      <DependentUpon>201812231900172_equipmentTable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201812231906485_equipmentTable1.cs" />
+    <Compile Include="Migrations\201812231906485_equipmentTable1.Designer.cs">
+      <DependentUpon>201812231906485_equipmentTable1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201812232057226_equipmentTable2.cs" />
+    <Compile Include="Migrations\201812232057226_equipmentTable2.Designer.cs">
+      <DependentUpon>201812232057226_equipmentTable2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201812232107306_equipmentTypeAdd.cs" />
+    <Compile Include="Migrations\201812232107306_equipmentTypeAdd.Designer.cs">
+      <DependentUpon>201812232107306_equipmentTypeAdd.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201812232253044_equipmentStateCreated.cs" />
+    <Compile Include="Migrations\201812232253044_equipmentStateCreated.Designer.cs">
+      <DependentUpon>201812232253044_equipmentStateCreated.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201812241314529_dbChanges.cs" />
+    <Compile Include="Migrations\201812241314529_dbChanges.Designer.cs">
+      <DependentUpon>201812241314529_dbChanges.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201812241323564_dbChanges2.cs" />
+    <Compile Include="Migrations\201812241323564_dbChanges2.Designer.cs">
+      <DependentUpon>201812241323564_dbChanges2.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\EntityModel\Entity.cs" />
     <Compile Include="Models\EquipmentModel\Equipment.cs" />
+    <Compile Include="Models\EquipmentStateModel\EquipmentState.cs" />
     <Compile Include="Models\EquipmentTypeModel\EquipmentType.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\LocationModel\Location.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\ResidualCenterContext.cs" />
+    <Compile Include="Models\ResidueTypeModel\ResidueType.cs" />
     <Compile Include="Models\ReviewModel\Review.cs" />
     <Compile Include="Models\ServiceModel\Service.cs" />
-    <Compile Include="Models\ServiceEntityRelationalModel\ServiceEntityRelational.cs" />
+    <Compile Include="Models\ServiceRequestModel\ServiceRequest.cs" />
     <Compile Include="Models\ServiceTypeModel\ServiceType.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
@@ -251,6 +281,14 @@
     <Content Include="Scripts\bootstrap.bundle.min.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="Scripts\esm\popper-utils.js" />
+    <Content Include="Scripts\esm\popper-utils.min.js" />
+    <Content Include="Scripts\esm\popper.js" />
+    <Content Include="Scripts\esm\popper.min.js" />
+    <Content Include="Scripts\esm\popper.min.js.map" />
+    <Content Include="Scripts\esm\popper.js.map" />
+    <Content Include="Scripts\esm\popper-utils.min.js.map" />
+    <Content Include="Scripts\esm\popper-utils.js.map" />
     <Content Include="Scripts\bootstrap.min.js.map" />
     <Content Include="Scripts\bootstrap.js.map" />
     <Content Include="Scripts\bootstrap.bundle.min.js.map" />
@@ -261,14 +299,6 @@
     <Content Include="Content\bootstrap-reboot.css.map" />
     <Content Include="Content\bootstrap-grid.min.css.map" />
     <Content Include="Content\bootstrap-grid.css.map" />
-    <Content Include="Scripts\esm\popper-utils.js" />
-    <Content Include="Scripts\esm\popper-utils.min.js" />
-    <Content Include="Scripts\esm\popper.js" />
-    <Content Include="Scripts\esm\popper.min.js" />
-    <Content Include="Scripts\esm\popper.min.js.map" />
-    <Content Include="Scripts\esm\popper.js.map" />
-    <Content Include="Scripts\esm\popper-utils.min.js.map" />
-    <Content Include="Scripts\esm\popper-utils.js.map" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.3.1.js" />
     <Content Include="Scripts\jquery-3.3.1.min.js" />
@@ -334,6 +364,16 @@
     <Content Include="Views\Manage\DeleteEntity.cshtml" />
     <Content Include="Views\Manage\CreateRole.cshtml" />
     <Content Include="Views\Manage\RegisterEmployee.cshtml" />
+    <Content Include="Views\Manage\ListEquipments.cshtml" />
+    <Content Include="Views\Manage\AddEquipment.cshtml" />
+    <Content Include="Views\Manage\AddEquipmentType.cshtml" />
+    <Content Include="Views\Manage\AddEquipmentState.cshtml" />
+    <Content Include="Views\Manage\DeleteEquipment.cshtml" />
+    <Content Include="Views\Manage\EditEquipment.cshtml" />
+    <Content Include="Views\Manage\DeleteServiceType.cshtml" />
+    <Content Include="Views\Manage\EditServiceType.cshtml" />
+    <Content Include="Views\Manage\CreateServiceType.cshtml" />
+    <Content Include="Views\Manage\ListServiceType.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -358,6 +398,27 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201812070013106_noNullFK.resx">
       <DependentUpon>201812070013106_noNullFK.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201812231900172_equipmentTable.resx">
+      <DependentUpon>201812231900172_equipmentTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201812231906485_equipmentTable1.resx">
+      <DependentUpon>201812231906485_equipmentTable1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201812232057226_equipmentTable2.resx">
+      <DependentUpon>201812232057226_equipmentTable2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201812232107306_equipmentTypeAdd.resx">
+      <DependentUpon>201812232107306_equipmentTypeAdd.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201812232253044_equipmentStateCreated.resx">
+      <DependentUpon>201812232253044_equipmentStateCreated.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201812241314529_dbChanges.resx">
+      <DependentUpon>201812241314529_dbChanges.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201812241323564_dbChanges2.resx">
+      <DependentUpon>201812241323564_dbChanges2.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

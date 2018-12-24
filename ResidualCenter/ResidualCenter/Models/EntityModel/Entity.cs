@@ -21,6 +21,7 @@ namespace ResidualCenter.Models
         [Required]
         [Display(Name = "Contacto")]
         public int Contact { get; set; }
+
         [Required]
         [DataType(DataType.Date)]
         [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
@@ -46,7 +47,7 @@ namespace ResidualCenter.Models
 
 
         public virtual Location Location { get; set; }
-        public virtual ICollection<ServiceEntityRelational> ServiceEntities { get; set; }
+        public virtual ICollection<ServiceRequest> ServiceRequest { get; set; }
         public ApplicationUser ApplicationUser { get; set; }
     }
 }

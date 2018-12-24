@@ -142,7 +142,7 @@ namespace ResidualCenter.Controllers
         [AllowAnonymous]
         public ActionResult Register()
         {
-            var teste = SignInManager.GetVerifiedUserId();
+          
             ViewBag.LocationID = new SelectList(residual.Locations, "ID", "Name");
             return View();
         }
