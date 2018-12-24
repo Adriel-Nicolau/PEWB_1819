@@ -741,7 +741,7 @@ namespace ResidualCenter.Controllers
             return View(services.ToList());
         }
 
-        // GET: Services/Details/5
+        // GET: Manage/Details/5
         public ActionResult DetailsService(int? id)
         {
             if (id == null)
@@ -753,17 +753,26 @@ namespace ResidualCenter.Controllers
             {
                 return HttpNotFound();
             }
+           IList<Equipment> equipmentList = residual.ServicesTypes.Find(service.ServiceTypeID).Equipments.ToList();
+            //foreach (var item in equipmentList)
+            //{
+                
+                ViewData.Add(new KeyValuePair<string, object>("equipmentList", equipmentList));
+            //}
+         
+            
+
             return View(service);
         }
 
-        // GET: Services/Create
+        // GET: Manage/Create
         public ActionResult CreateService()
         {
             ViewBag.ServiceTypeID = new SelectList(residual.ServicesTypes, "ID", "Name");
             return View();
         }
 
-        // POST: Services/Create
+        // POST: Manage/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
@@ -781,7 +790,7 @@ namespace ResidualCenter.Controllers
             return View(service);
         }
 
-        // GET: Services/Edit/5
+        // GET: Manage/Edit/5
         public ActionResult EditService(int? id)
         {
             if (id == null)
@@ -797,7 +806,7 @@ namespace ResidualCenter.Controllers
             return View(service);
         }
 
-        // POST: Services/Edit/5
+        // POST: Manage/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
@@ -814,7 +823,7 @@ namespace ResidualCenter.Controllers
             return View(service);
         }
 
-        // GET: Services/Delete/5
+        // GET: Manage/Delete/5
         public ActionResult DeleteService(int? id)
         {
             if (id == null)
@@ -829,7 +838,7 @@ namespace ResidualCenter.Controllers
             return View(service);
         }
 
-        // POST: Services/Delete/5
+        // POST: Manage/Delete/5
         [HttpPost, ActionName("DeleteService")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmedService(int id)

@@ -148,6 +148,7 @@ namespace ResidualCenter.Models
         [Display(Name = "Tipo de Serviço")]
         public int ServiceTypeID { get; set; } // FK from locationModel
     }
+  
     public class ConfigureTwoFactorViewModel
     {
         public string SelectedProvider { get; set; }
