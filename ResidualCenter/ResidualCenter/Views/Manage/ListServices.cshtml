@@ -1,0 +1,40 @@
+﻿@model IEnumerable<ResidualCenter.Models.Service>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "CreateService")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.ServiceType.Name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Description)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.ServiceType.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Description)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "EditService", new { id = item.ID }) |
+                @Html.ActionLink("Details", "DetailsService", new { id = item.ID }) |
+                @Html.ActionLink("Delete", "DeleteService", new { id = item.ID })
+            </td>
+        </tr>
+    }
+
+</table>
