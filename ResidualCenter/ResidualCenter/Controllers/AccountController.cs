@@ -13,12 +13,18 @@ using ResidualCenter.Models;
 
 namespace ResidualCenter.Controllers
 {
+
     [Authorize]
     public class AccountController : Controller
     {
+        private const string CLIENT = "Client";
+        private const string EMPLOYEE = "Employee";
+        private const string ADMIN = "Admin";
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
         private ResidualCenterContext residual = new ResidualCenterContext();
+
+        private ApplicationDbContext context = new ApplicationDbContext();
         public AccountController()
         {
 
@@ -79,14 +85,44 @@ namespace ResidualCenter.Controllers
             // This doesn't count login failures towards account lockout
             // To enable password failures to trigger account lockout, change to shouldLockout: true
             var result = await SignInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, shouldLockout: false);
+
             switch (result)
             {
+
                 case SignInStatus.Success:
+                    var userManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(context));
+                    Entity entity = residual.Entities.Where(x => x.Email == model.Email).FirstOrDefault();
+                    if (entity != null)
+                    {
+                        var userRole = userManager.GetRoles(entity.UserId);
+                        if (userRole != null)
+                        {
+                            switch (userRole[0])
+                            {
+                                case CLIENT:
+                                    return RedirectToAction("Index", "Client");
+
+
+                                case EMPLOYEE:
+                                    return RedirectToAction("Index", "Employee");
+
+                                case ADMIN:
+                                    return RedirectToAction("Index", "Manage");
+
+
+                            }
+                        }
+                    }
+
                     return RedirectToLocal(returnUrl);
                 case SignInStatus.LockedOut:
                     return View("Lockout");
                 case SignInStatus.RequiresVerification:
-                    return RedirectToAction("SendCode", new { ReturnUrl = returnUrl, RememberMe = model.RememberMe });
+                    return RedirectToAction("SendCode", new
+                    {
+                        ReturnUrl = returnUrl,
+                        RememberMe = model.RememberMe
+                    });
                 case SignInStatus.Failure:
                 default:
                     ModelState.AddModelError("", "Invalid login attempt.");
@@ -154,7 +190,7 @@ namespace ResidualCenter.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Register(RegisterViewModel model)
         {
-            
+
 
             if (ModelState.IsValid)
             {
@@ -163,8 +199,8 @@ namespace ResidualCenter.Controllers
                 if (result.Succeeded)
                 {
                     await SignInManager.SignInAsync(userAsp, isPersistent: false, rememberBrowser: false);
+                    // var result = await SignInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, shouldLockout: false);
 
-                   
                     await UserManager.AddToRoleAsync(userAsp.Id, "Client");
                     Entity entity = new Entity
                     {
@@ -187,7 +223,7 @@ namespace ResidualCenter.Controllers
                     // var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
                     // await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
 
-                    return RedirectToAction("Index", "Home");
+                    return RedirectToAction("Index", "Client");
                 }
                 AddErrors(result);
             }

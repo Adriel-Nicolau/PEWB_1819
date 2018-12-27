@@ -20,3 +20,22 @@
 <br />
 <br />
 @Html.ActionLink("Listar Serviços", "ListServices")
+
+
+@*@Html.Partial("_MenuManage")*@
+
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    <script type="text/javascript">
+        console.log("teste");
+        $(document).ready(function () {
+            console.log("RDY");
+            $("#homeLink").hide();
+            $("#aboutLink").hide();
+            $("#contactLink").hide();
+        });
+        console.log("<li id='ola'> <a href=/Manage/Index >Manage </a></li>")
+        $("#miniMenu").append("<li id='ola'> <a href=/Manage/Index >Manage </a></li>");
+    </script>
+}

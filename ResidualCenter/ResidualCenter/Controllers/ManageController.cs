@@ -495,7 +495,7 @@ namespace ResidualCenter.Controllers
                         Gender = model.Gender
 
                     };
-
+                
                     residual.Entities.Add(entity);
                     residual.SaveChanges();
 

@@ -195,8 +195,10 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\ClientController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\ServiceRequestsController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -206,6 +208,7 @@
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\ClientViewModel.cs" />
     <Compile Include="Models\EntityModel\Entity.cs" />
     <Compile Include="Models\EquipmentModel\Equipment.cs" />
     <Compile Include="Models\EquipmentStateModel\EquipmentState.cs" />
@@ -301,6 +304,16 @@
     <Content Include="Views\Manage\ListServices.cshtml" />
     <Content Include="Views\Manage\ListServiceType.cshtml" />
     <Content Include="Views\Manage\RegisterEmployee.cshtml" />
+    <Content Include="Views\Shared\_ContentPartial.cshtml" />
+    <Content Include="Views\Client\Index.cshtml" />
+    <Content Include="Views\Client\_MenuClient.cshtml" />
+    <Content Include="Views\Manage\_MenuManage.cshtml" />
+    <Content Include="Views\Client\RequestServices.cshtml" />
+    <Content Include="Views\ServiceRequests\Create.cshtml" />
+    <Content Include="Views\ServiceRequests\Delete.cshtml" />
+    <Content Include="Views\ServiceRequests\Details.cshtml" />
+    <Content Include="Views\ServiceRequests\Edit.cshtml" />
+    <Content Include="Views\ServiceRequests\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

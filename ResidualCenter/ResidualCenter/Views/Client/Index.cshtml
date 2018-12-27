@@ -1,0 +1,30 @@
+﻿@using Microsoft.AspNet.Identity
+@{
+    ViewBag.Title = "Index";
+}
+
+
+
+@if (Request.IsAuthenticated)
+{
+    <h2>Perfil @User.Identity.Name</h2>
+    @Html.AntiForgeryToken()
+    if (User.IsInRole("Admin"))
+    {
+        <p>ADMIN</p>
+    }
+    else if (User.IsInRole("Client"))
+    {
+        <p>CLIENT</p>
+    }
+    else if (User.IsInRole("Employee"))
+    {
+        <p>EMPLOYEE</p>
+    }
+
+ //   @Html.Partial("_MenuAdmin")
+}
+else
+{
+    @Html.ActionLink("Register", "Register", "Account", routeValues: null, htmlAttributes: new { id = "registerLink" })
+}
