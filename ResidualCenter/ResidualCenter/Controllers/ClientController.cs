@@ -19,14 +19,13 @@ namespace ResidualCenter.Controllers
         {
             return View();
         }
+       
 
-        // GET: Client/Create
-        public ActionResult Create()
+        // GET: Client/Details/5
+        public ActionResult ServicesOptions()
         {
             return View();
         }
-
-       
 
         // GET: Client/Edit/5
         public ActionResult Edit(int id)

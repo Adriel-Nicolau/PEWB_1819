@@ -1,30 +1,47 @@
-﻿@using Microsoft.AspNet.Identity
+﻿
 @{
     ViewBag.Title = "Index";
 }
 
+<h2>Index</h2>
+@Html.ActionLink("Listar Roles", "ListRole")
+<br />
+<br />
+@Html.ActionLink("Listar Entidades", "ListEntities")
+<br />
+<br />
+@Html.ActionLink("Register", "RegisterEmployee", "Manage", routeValues: null, htmlAttributes: new { id = "registerLink" })
+<br />
+<br />
+@Html.ActionLink("Listar Equipamnetos", "ListEquipments")
+<br />
+<br />
+@Html.ActionLink("Listar Serviços tipo", "ListServiceType")
+<br />
+<br />
+@Html.ActionLink("Listar Serviços", "ListServices")
 
 
-@if (Request.IsAuthenticated)
-{
-    <h2>Perfil @User.Identity.Name</h2>
-    @Html.AntiForgeryToken()
-    if (User.IsInRole("Admin"))
-    {
-        <p>ADMIN</p>
-    }
-    else if (User.IsInRole("Client"))
-    {
-        <p>CLIENT</p>
-    }
-    else if (User.IsInRole("Employee"))
-    {
-        <p>EMPLOYEE</p>
-    }
 
- //   @Html.Partial("_MenuAdmin")
-}
-else
-{
-    @Html.ActionLink("Register", "Register", "Account", routeValues: null, htmlAttributes: new { id = "registerLink" })
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    <script type="text/javascript">
+        console.log("teste");
+        $(document).ready(function () {
+            console.log("RDY");
+            $("#homeLink").hide();
+            $("#aboutLink").hide();
+            $("#contactLink").hide();
+
+            var link1 = "<a href='/Client/Services' id='ttt2t'>Serviços</a>";
+            var content = "<ul class='nav navbar-nav navbar-left'>" +
+                "<li> " + link1 + " </li>" +
+                "</ul>";
+            $("#barraMenu").append(content);
+
+        });
+
+
+    </script>
 }
