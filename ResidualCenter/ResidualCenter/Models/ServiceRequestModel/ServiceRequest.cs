@@ -14,7 +14,7 @@ namespace ResidualCenter.Models
         [Required]
         public string EntityID { get; set; }
         [Required]
-        public int ServiceID { get; set; }
+        public int ServiceTypeID { get; set; }
 
         [DisplayFormat(NullDisplayText = "Não Aceite")]
         public string Status { get; set; }
@@ -33,7 +33,7 @@ namespace ResidualCenter.Models
         public int ResidueTypeID { get; set; } // FK from locationModel
 
         public virtual Entity Entity { get; set; }
-        public virtual Service Service { get; set; }
+        public virtual ServiceType ServiceType { get; set; }
         public virtual ResidueType ResidueType { get; set; }
 
     }
