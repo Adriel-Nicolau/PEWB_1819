@@ -21,14 +21,19 @@ namespace ResidualCenter.Controllers
         {
             return View();
         }
-       
 
+<<<<<<< HEAD
         // GET: Client/Details/5
         public ActionResult ListServices()
+=======
+        // GET: Client/Create
+        public ActionResult Create()
+>>>>>>> parent of 68761b7... oncemore
         {
             return View();
         }
 
+<<<<<<< HEAD
         
         // GET: Client/Details/5
         public ActionResult RequestServices()
@@ -48,6 +53,10 @@ namespace ResidualCenter.Controllers
             return View();
         }
         
+=======
+       
+
+>>>>>>> parent of 68761b7... oncemore
         // GET: Client/Edit/5
         public ActionResult Edit(int id)
         {

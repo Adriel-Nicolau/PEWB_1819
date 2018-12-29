@@ -307,13 +307,14 @@
     <Content Include="Views\Manage\RegisterEmployee.cshtml" />
     <Content Include="Views\Shared\_ContentPartial.cshtml" />
     <Content Include="Views\Client\Index.cshtml" />
+    <Content Include="Views\Client\_MenuClient.cshtml" />
+    <Content Include="Views\Manage\_MenuManage.cshtml" />
     <Content Include="Views\Client\RequestServices.cshtml" />
     <Content Include="Views\ServiceRequests\Create.cshtml" />
     <Content Include="Views\ServiceRequests\Delete.cshtml" />
     <Content Include="Views\ServiceRequests\Details.cshtml" />
     <Content Include="Views\ServiceRequests\Edit.cshtml" />
     <Content Include="Views\ServiceRequests\Index.cshtml" />
-    <Content Include="Views\Client\ServicesOptions.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

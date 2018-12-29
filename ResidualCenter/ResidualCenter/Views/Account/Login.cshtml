@@ -58,3 +58,17 @@
     </div>
 </div>
 
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    <script type="text/javascript">
+        console.log("teste");
+        $('.triggerBtn').click(function () {
+            console.log("RDY");
+            //$("#mainMenu").hide();
+            //$("#aboutLink").hide();
+            //$("#homeLink").hide();
+        });
+
+    </script>
+}
