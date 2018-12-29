@@ -11,7 +11,8 @@ namespace ResidualCenter.Models
 
         public class RequestService
         {
-            
+           
+
             [Required]
             [DataType(DataType.Date)]
             [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
@@ -27,8 +28,9 @@ namespace ResidualCenter.Models
             public int ResidueTypeID { get; set; } // FK from locationModel
 
             [Required]
-            [Display(Name = "Serviço")]
-            public int ServiceID { get; set; } // FK from locationModel
+            [Display(Name = "Serviços")]
+            public int ServicesTypesID { get; set; } // FK from locationModel
+
             [Required]
             [Display(Name = "Local")]
             public int LocationID { get; set; } // FK from locationModel

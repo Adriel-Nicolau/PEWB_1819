@@ -7,13 +7,13 @@ namespace ResidualCenter.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.2.0-61023")]
-    public sealed partial class delete : IMigrationMetadata
+    public sealed partial class _1231324142214 : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(delete));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(_1231324142214));
         
         string IMigrationMetadata.Id
         {
-            get { return "201812272355571_delete"; }
+            get { return "201812291444595_1231324142214"; }
         }
         
         string IMigrationMetadata.Source

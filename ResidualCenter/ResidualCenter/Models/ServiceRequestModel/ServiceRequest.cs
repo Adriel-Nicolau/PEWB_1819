@@ -29,12 +29,12 @@ namespace ResidualCenter.Models
 
         [Required]
         [ForeignKey("ResidueType")]
-        [Display(Name = "Região")]
+        [Display(Name = "Residuo")]
         public int ResidueTypeID { get; set; } // FK from locationModel
-        [Required]
-        
+
         [Display(Name = "Descrição")]
-        public string Description { get; set; } // FK from locationModel
+        public string Description { get; set; } 
+
 
         public virtual Entity Entity { get; set; }
         public virtual ServiceType ServiceType { get; set; }

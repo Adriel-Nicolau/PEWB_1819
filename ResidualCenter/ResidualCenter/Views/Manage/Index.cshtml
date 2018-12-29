@@ -1,12 +1,4 @@
-<<<<<<< HEAD
-<<<<<<< HEAD
 ﻿@{
-=======
-=======
->>>>>>> parent of 68761b7... oncemore
-﻿
-@{
->>>>>>> parent of 68761b7... oncemore
     ViewBag.Title = "Index";
 }
 
@@ -29,7 +21,6 @@
 @Html.ActionLink("Listar Serviços", "ListServices")
 
 
-@*@Html.Partial("_MenuManage")*@
 
 
 @section Scripts {
@@ -41,8 +32,15 @@
             $("#homeLink").hide();
             $("#aboutLink").hide();
             $("#contactLink").hide();
+
+            var link1 = "<a href='/Account/Register' id='tttt'>Register</a>";
+            var content = "<ul class='nav navbar-nav navbar-left'>" +
+                "<li> " + link1 + " </li>" +
+                "</ul>";
+            $("#barraMenu").append(content);
+
         });
-        console.log("<li id='ola'> <a href=/Manage/Index >Manage </a></li>")
-        $("#miniMenu").append("<li id='ola'> <a href=/Manage/Index >Manage </a></li>");
+
+
     </script>
 }
