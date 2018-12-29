@@ -23,6 +23,7 @@ namespace ResidualCenter.Controllers
         }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
         // GET: Client/Details/5
         public ActionResult ListServices()
 =======
@@ -37,6 +38,10 @@ namespace ResidualCenter.Controllers
         
         // GET: Client/Details/5
         public ActionResult RequestServices()
+=======
+        // GET: Client/Create
+        public ActionResult Create()
+>>>>>>> parent of 68761b7... oncemore
         {
             ViewBag.LocationID = new SelectList(residual.Locations, "ID", "Name");
             ViewBag.ServiceID = new SelectList(residual.Services, "ID", "Name");
@@ -44,6 +49,7 @@ namespace ResidualCenter.Controllers
             return View();
         }
 
+<<<<<<< HEAD
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
@@ -53,6 +59,10 @@ namespace ResidualCenter.Controllers
             return View();
         }
         
+=======
+       
+
+>>>>>>> parent of 68761b7... oncemore
 =======
        
 
