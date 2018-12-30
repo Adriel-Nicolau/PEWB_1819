@@ -1,0 +1,68 @@
+﻿@model ResidualCenter.Models.Service
+
+@{
+    ViewBag.Title = "Details";
+    
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Service</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.ServiceType.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ServiceType.Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Description)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Description)
+
+        </dd>
+
+    </dl>
+    <table style="width:800px" class="table table-bordered">
+        <thead class="thead-dark">
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Nome</th>
+                <th scope="col">Tipo</th>
+
+            </tr>
+        </thead>
+        @foreach (var equipment in ViewData["equipmentList"] as IList<ResidualCenter.Models.Equipment>)
+        {
+            <tr>
+                <th align="center" scope="row">  @equipment.ID</th>
+
+                <td align="center">
+                    @equipment.Name
+                </td>
+                <td align="center">
+                    @equipment.EquipmentType.Name
+                </td>
+                
+              
+            </tr>
+        }
+        
+
+    </table>
+
+    <ul>
+        
+    </ul>
+
+</div>
+<p>
+    @Html.ActionLink("Edit", "EditService", new { id = Model.ID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

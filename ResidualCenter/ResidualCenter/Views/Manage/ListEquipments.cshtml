@@ -1,0 +1,54 @@
+﻿@model IEnumerable<ResidualCenter.Models.Equipment>
+@{
+    ViewBag.Title = "ListEquipments";
+}
+
+<h2>ListEquipments</h2>
+
+
+<!-- no onclick vou para outra pagina Argumentos(Action,Controller) -->
+<button type="button" class="btn btn-primary" onclick=" window.location.href = '@Url.Action("AddEquipment", "Manage")';">Adicionar Equipamento/s</button>
+<button type="button" class="btn btn-primary" onclick=" window.location.href = '@Url.Action("AddEquipmentType", "Manage")';">Adicionar Tipo</button>
+<button type="button" class="btn btn-primary" onclick=" window.location.href = '@Url.Action("AddEquipmentState", "Manage")';">Adicionar Estados</button>
+<br />
+<br />
+<br />
+<table style="width:800px" class="table table-bordered">
+    <thead class="thead-dark">
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">Nome</th>
+            <th scope="col">Tipo</th>
+            <th scope="col">Tipo de Serviço</th>
+            <th scope="col">Estado</th>
+            
+        </tr>
+    </thead>
+    @foreach (var item in Model)
+    {
+    <tr>
+        <th align="center" scope="row"> @Html.DisplayFor(modelItem => item.ID)</th>
+
+        <td align="center">
+            @Html.DisplayFor(modelItem => item.Name)
+        </td>
+        <td align="center">
+            @Html.DisplayFor(modelItem => item.EquipmentType.Name)
+        </td>
+        <td align="center">
+            @Html.DisplayFor(modelItem => item.ServiceType.Name)
+        </td>
+        <td align="center">
+            @Html.DisplayFor(modelItem => item.EquipmentState.Name)
+        </td>
+
+
+        <td align="center">
+            @Html.ActionLink("Editar", "EditEquipment", new { id = item.ID }) |
+            @Html.ActionLink("Remover", "DeleteEquipment", new { id = item.ID })
+        </td>
+    </tr>
+
+    }
+
+</table>

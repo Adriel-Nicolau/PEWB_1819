@@ -1,0 +1,78 @@
+﻿@model IEnumerable<ResidualCenter.Models.ServiceRequest>
+@{
+    ViewBag.Title = "ServicesOptions";
+}
+
+<br />
+<br />
+<h2>Lista de Serviços</h2>
+
+<br />
+<br />
+<br />
+
+
+<div class="container">
+
+    <ul class="nav nav-pills">
+        <li class="active"><a data-toggle="pill" href="#aceite">Aceites</a></li>
+        <li><a data-toggle="pill" href="#pendente">Pendentes</a></li>
+        <li><a data-toggle="pill" href="#recusado">Recusados</a></li>
+        <li><a data-toggle="pill" href="#finalizado">Finalizado</a></li>
+    </ul>
+
+    <div class="tab-content">
+        <div id="aceite" class="tab-pane fade in active">
+            <br />
+            @{
+                foreach (var item in Model)
+                {
+                    if (item.ServiceRequestStatus.Name.Equals("Aceite"))
+                    {
+                        @Html.Partial("_listRequestSucess", item)
+                    }
+
+                }
+            }
+        </div>
+        <div id="pendente" class="tab-pane fade">
+            <br />
+            @{
+                foreach (var item in Model)
+                {
+                    if (item.ServiceRequestStatus.Name.Equals("Pendente"))
+                    {
+                        @Html.Partial("_listRequestWaiting", item)
+                    }
+
+                }
+            }
+        </div>
+        <div id="recusado" class="tab-pane fade">
+            <br />
+            @{
+                foreach (var item in Model)
+                {
+                    if (item.ServiceRequestStatus.Name.Equals("Recusado"))
+                    {
+                        @Html.Partial("_listRequestRefused", item)
+                    }
+
+                }
+            }
+        </div>
+        <div id="finalizado" class="tab-pane fade">
+            <br />
+            @{
+                foreach (var item in Model)
+                {
+                    if (item.ServiceRequestStatus.Name.Equals("Finalizado"))
+                    {
+                        @Html.Partial("_listRequestDone", item)
+                    }
+
+                }
+            }
+        </div>
+    </div>
+</div>

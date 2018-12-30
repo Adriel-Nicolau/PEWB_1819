@@ -1,0 +1,46 @@
+﻿@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+@Html.ActionLink("Listar Roles", "ListRole")
+<br />
+<br />
+@Html.ActionLink("Listar Entidades", "ListEntities")
+<br />
+<br />
+@Html.ActionLink("Register", "RegisterEmployee", "Manage", routeValues: null, htmlAttributes: new { id = "registerLink" })
+<br />
+<br />
+@Html.ActionLink("Listar Equipamnetos", "ListEquipments")
+<br />
+<br />
+@Html.ActionLink("Listar Serviços tipo", "ListServiceType")
+<br />
+<br />
+@Html.ActionLink("Listar Serviços", "ListServices")
+
+
+
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    <script type="text/javascript">
+        console.log("teste");
+        $(document).ready(function () {
+            console.log("RDY");
+            $("#homeLink").hide();
+            $("#aboutLink").hide();
+            $("#contactLink").hide();
+
+            var link1 = "<a href='/Account/Register' id='tttt'>Register</a>";
+            var content = "<ul class='nav navbar-nav navbar-left'>" +
+                "<li> " + link1 + " </li>" +
+                "</ul>";
+            $("#barraMenu").append(content);
+
+        });
+
+
+    </script>
+}

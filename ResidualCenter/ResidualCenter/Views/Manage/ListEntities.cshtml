@@ -1,0 +1,53 @@
+﻿@model IEnumerable<ResidualCenter.Models.Entity>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<br />
+<br />
+<h2>Lista de Entidades</h2>
+
+<br />
+<br />
+<br />
+
+
+<div class="container">
+
+    <ul class="nav nav-pills">
+        <li class="active"><a data-toggle="pill" href="#employee">Empregados</a></li>
+        <li><a data-toggle="pill" href="#client">Clientes</a></li>
+
+    </ul>
+
+    <div class="tab-content">
+        <div id="employee" class="tab-pane fade in active">
+            <br />
+            @{
+                foreach (var item in Model)
+                {
+                    if (ViewData[item.Email].Equals("Employee"))
+                    {
+                        @Html.Partial("_listEntityEmployee", item)
+                    }
+
+                }
+            }
+        </div>
+        <div id="client" class="tab-pane fade">
+            <br />
+            @{
+                foreach (var item in Model)
+                {
+                    if (ViewData[item.Email].Equals("Client"))
+                    {
+                        @Html.Partial("_listEntityClient", item)
+                    }
+
+                }
+            }
+        </div>
+
+    </div>
+</div>

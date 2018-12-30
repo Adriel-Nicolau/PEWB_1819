@@ -1,0 +1,31 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>LISTA DE SERVIÇOS</h2>
+
+<button type="button" class="btn btn-primary" onclick=" window.location.href = '@Url.Action("RequestServices", "Client")';">Pedir Serviços</button>
+
+<button type="button" class="btn btn-primary" onclick=" window.location.href = '@Url.Action("ListRequestedServices", "Client")';">Pedir Serviços</button>
+
+
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    <script type="text/javascript">
+        console.log("teste");
+        $(document).ready(function () {
+
+
+            var link1 = "<a href='/Client/ListServices' >Serviços</a>";
+            var content = "<ul class='nav navbar-nav navbar-left'>" +
+                "<li> " + link1 + " </li>" +
+                "</ul> ";
+            $("#barraMenu").before(content);
+
+        });
+
+
+    </script>
+}
