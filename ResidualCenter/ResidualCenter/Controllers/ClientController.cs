@@ -96,7 +96,7 @@ namespace ResidualCenter.Controllers
             var requestList = entity.ServiceRequest;
             //foreach (var item in requestList)
             //{
-               
+
             //    ViewData.Add(new KeyValuePair<string, object>(item.ID.ToString(), item.ServiceRequestStatus.Name));
             //}
 

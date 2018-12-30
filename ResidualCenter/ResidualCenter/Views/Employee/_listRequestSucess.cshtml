@@ -1,0 +1,60 @@
+﻿@model ResidualCenter.Models.ServiceRequest
+
+<div class="jumbotron alert-success">
+    <table class="table">
+
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.RequestDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ResidueType.Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ServiceType.Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ServiceRequestStatus.Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Description)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Adress)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Location)
+            </th>
+            <th></th>
+        </tr>
+        <tr>
+            <td>
+                @Html.HiddenFor(model => model.ID, htmlAttributes: new { id = "serviceID" })
+            </td>
+            <td align="left">
+                @Html.DisplayFor(model => model.RequestDate)
+            </td>
+            <td align="left">
+                @Html.DisplayFor(model => model.ResidueType.Name)
+            </td>
+            <td align="left">
+                @Html.DisplayFor(model => model.ServiceType.Name)
+            </td>
+            <td align="left">
+                @Html.DisplayFor(model => model.ServiceRequestStatus.Name)
+            </td>
+            <td align="left">
+                @Html.DisplayFor(model => model.Description)
+            </td>
+            <td align="left">
+                @Html.DisplayFor(model => model.Adress)
+            </td>
+            <td align="left">
+                @Html.DisplayFor(model => model.Location)
+            </td>
+            <td align="left">
+                <input type="button" value="Detail" class="btn btn-primary" onclick="location.href='@Url.Action("GetService", "Employee")?id=' + document.getElementById('serviceID').value" />
+            </td>
+        </tr>
+    </table>
+</div>
