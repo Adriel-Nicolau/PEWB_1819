@@ -23,7 +23,7 @@ namespace ResidualCenter.Models
         public virtual DbSet<ServiceRequest> ServiceRequests { get; set; }
         public virtual DbSet<ResidueType> ResidueTypes { get; set; }
 
-
+        public virtual DbSet<ServiceRequestStatus> ServiceRequestStatus { get; set; }
 
     }
 }

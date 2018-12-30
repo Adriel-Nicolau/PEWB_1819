@@ -737,8 +737,48 @@ namespace ResidualCenter.Controllers
 
         public ActionResult ListServicesRequest()
         {
-                                             return View(residual.ServiceRequests.ToList());
-            
+
+           
+          //  ViewBag.EmployeeList = CreateEmployeeList();
+            ViewBag.ServiceRequestStatusID = new SelectList(residual.ServiceRequestStatus, "ID", "Name");
+            return View(residual.ServiceRequests.ToList());
+
+        }
+
+        [HttpPost]
+        [AllowAnonymous]
+        [ValidateAntiForgeryToken]
+        public ActionResult ListServicesRequest(ChangeStatusServiceResquestViewModel changes )
+        {
+        
+            ServiceRequest sr = residual.ServiceRequests.Find(changes.ID);
+            sr.ServiceRequestStatusID = changes.ServiceRequestStatusID;
+            residual.Entry(sr).State = EntityState.Modified;
+            residual.SaveChanges();
+
+         
+            return RedirectToAction("ListServicesRequest");
+        }
+        private IList<SelectListItem> CreateEmployeeList()
+        {
+            var userManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(context));
+
+            IList<SelectListItem> employeeList = new List<SelectListItem>();
+            var entities = residual.Entities.Include(e => e.Location);
+            foreach (var item in entities)
+            {
+                var role = userManager.GetRoles(item.UserId).FirstOrDefault();
+                if (role.Equals("Employee"))
+                {
+                    employeeList.Add(new SelectListItem { Text = item.Name, Value = item.ID.ToString() });
+                }
+
+            }
+            if (employeeList == null)
+            {
+                employeeList.Add(new SelectListItem { Text = "não ha empregados", Value = "-1" });
+            }
+            return employeeList;
         }
         #region Helpers
         // Used for XSRF protection when adding external logins
