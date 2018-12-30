@@ -3,44 +3,144 @@
 }
 
 <h2>Index</h2>
-@Html.ActionLink("Listar Roles", "ListRole")
-<br />
-<br />
-@Html.ActionLink("Listar Entidades", "ListEntities")
-<br />
-<br />
-@Html.ActionLink("Register", "RegisterEmployee", "Manage", routeValues: null, htmlAttributes: new { id = "registerLink" })
-<br />
-<br />
-@Html.ActionLink("Listar Equipamnetos", "ListEquipments")
-<br />
-<br />
-@Html.ActionLink("Listar Serviços tipo", "ListServiceType")
-<br />
-<br />
-@Html.ActionLink("Listar Serviços", "ListServices")
+
+<div class="row">
+
+    <div class="col-sm-4">
+        <div class="card card-default">
+            <div class="card-header" style="display: flex;background-color:darkslateblue;color:aliceblue; justify-content: center;">Pedidos de Serviço</div>
+            <div class="card-body card-5-7">
+                <div class="card-left">
+                    <i class="fas fa-truck fa-w-14 fa-8x"></i>
+                </div>
+                <div class="card-right">
+                    <ul>
+                        <li>Lista de Serviçoes</li>
+                        <li>Gerir Serviços</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="card-footer" style="display: flex; justify-content: center;">
+
+                <input type="button" style="background-color:darkslateblue" value="Serviços" class="btn btn-primary" onclick="location.href='@Url.Action("ListServicesRequest", "Manage")';" />
+            </div>
+        </div>
+    </div>
+
+
+
+    <div class="col-sm-4">
+        <div class="card card-default">
+            <div class="card-header" style="display: flex;background-color:darkslateblue;color:aliceblue; justify-content: center;">Opções das Roles</div>
+            <div class="card-body card-5-7">
+                <div class="card-left">
+                    <i class="fas fa-sitemap fa-w-14 fa-8x"></i> <!-- this icon's 1) style prefix == fas and 2) icon name == igloo -->
+                </div>
+                <div class="card-right">
+                    <ul>
+                        <li>Lista Roles</li>
+                        <li>Criar Roles</li>
+                        <li>Editar Roles</li>
+                        <li>Remover Roles</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="card-footer" style="display: flex; justify-content: center;">
+
+                <input type="button" style="background-color:darkslateblue" value="Roles" class="btn btn-primary" onclick="location.href='@Url.Action("ListRole", "Manage")';" />
+            </div>
+        </div>
+    </div>
+
+
+    <div class="col-sm-4">
+        <div class="card card-default">
+            <div class="card-header" style="display: flex;background-color:darkslateblue;color:aliceblue; justify-content: center;">Registar Empregado</div>
+            <div class="card-body card-5-7">
+                <div class="card" style="display: flex; justify-content: center;">
+                    <i class="fas fa-briefcase fa-w-14 fa-8x"></i>
+                </div>
+
+            </div>
+            <div class="card-footer" style="display: flex; justify-content: center;">
+
+                <input type="button" id="registerLink" style="background-color:darkslateblue" value="Registar" class="btn btn-primary" onclick="location.href='@Url.Action("RegisterEmployee", "Manage")';" />
+            </div>
+        </div>
+    </div>
+</div>
+<i class="fas "></i>
+<div class="row">
+    <div class="col-sm-4">
+        <div class="card card-default">
+            <div class="card-header" style="display: flex;background-color:darkslateblue;color:aliceblue; justify-content: center;">Opções de Serviço</div>
+            <div class="card-body card-5-7">
+                <div class="card-left">
+                    <i class="fas fa-truck-loading fa-w-14 fa-8x"></i> <!-- this icon's 1) style prefix == fas and 2) icon name == igloo -->
+                </div>
+                <div class="card-right">
+                    <ul>
+                        <li>Lista Tipos</li>
+                        <li>Criar Tipo</li>
+                        <li>Editar Tipo</li>
+                        <li>Remover Tipo</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="card-footer" style="display: flex; justify-content: center;">
+
+                <input type="button" style="background-color:darkslateblue" value="Gerir" class="btn btn-primary" onclick="location.href='@Url.Action("ListServiceType", "Manage")';" />
+            </div>
+        </div>
+    </div>
+
+    <div class="col-sm-4">
+        <div class="card card-default">
+            <div class="card-header" style="display: flex;background-color:darkslateblue;color:aliceblue; justify-content: center;">Opções das Ferramentas</div>
+            <div class="card-body card-5-7">
+                <div class="card-left">
+                    <i class="fas fa-tools fa-w-14 fa-8x"></i> <!-- this icon's 1) style prefix == fas and 2) icon name == igloo -->
+                </div>
+                <div class="card-right">
+                    <ul>
+                        <li>Lista Ferramentas</li>
+                        <li>Criar Ferramentas</li>
+                        <li>Editar Ferramentas</li>
+                        <li>Remover Ferramentas</li>
+
+                    </ul>
+                </div>
+            </div>
+            <div class="card-footer" style="display: flex; justify-content: center;">
+
+                <input type="button" style="background-color:darkslateblue" value="Gerir" class="btn btn-primary" onclick="location.href='@Url.Action("ListEquipments", "Manage")';" />
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-4">
+        <div class="card card-default">
+            <div class="card-header" style="display: flex;background-color:darkslateblue;color:aliceblue; justify-content: center;">Lista de Utilizadores</div>
+            <div class="card-body card-5-7">
+                <div class="card" style="display: flex; justify-content: center;">
+                    <i class="fas fa-clipboard-list fa-w-14 fa-8x"></i> <!-- this icon's 1) style prefix == fas and 2) icon name == igloo -->
+                </div>
+                
+            </div>
+            <div class="card-footer" style="display: flex; justify-content: center;">
+
+                <input type="button" style="background-color:darkslateblue" value="Lista" class="btn btn-primary" onclick="location.href='@Url.Action("ListEntities", "Manage")';" />
+            </div>
+        </div>
+    </div>
+</div>
 
 
 
 
-@section Scripts {
-    @Scripts.Render("~/bundles/jqueryval")
-    <script type="text/javascript">
-        console.log("teste");
-        $(document).ready(function () {
-            console.log("RDY");
-            $("#homeLink").hide();
-            $("#aboutLink").hide();
-            $("#contactLink").hide();
-
-            var link1 = "<a href='/Account/Register' id='tttt'>Register</a>";
-            var content = "<ul class='nav navbar-nav navbar-left'>" +
-                "<li> " + link1 + " </li>" +
-                "</ul>";
-            $("#barraMenu").append(content);
-
-        });
 
 
-    </script>
-}
+
+
+
+
+
