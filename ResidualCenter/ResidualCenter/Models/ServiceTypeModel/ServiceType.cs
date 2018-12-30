@@ -11,6 +11,6 @@ namespace ResidualCenter.Models
         public int ID { get; set; }
         [Display(Name = "Tipo de Serviço")]
         public string Name { get; set; }
-        public virtual ICollection<Equipment> Equipments { get; set; }
+       
     }
 }

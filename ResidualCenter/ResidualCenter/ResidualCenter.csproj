@@ -238,14 +238,15 @@
     <Compile Include="Migrations\201812300103413_x222dd.Designer.cs">
       <DependentUpon>201812300103413_x222dd.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201812302054277_x33.cs" />
+    <Compile Include="Migrations\201812302054277_x33.Designer.cs">
+      <DependentUpon>201812302054277_x33.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\ServiceRequestStatus.cs" />
     <Compile Include="Models\ViewModels\AccountViewModels.cs" />
     <Compile Include="Models\ViewModels\ClientViewModel.cs" />
     <Compile Include="Models\EntityModel\Entity.cs" />
-    <Compile Include="Models\EquipmentModel\Equipment.cs" />
-    <Compile Include="Models\EquipmentStateModel\EquipmentState.cs" />
-    <Compile Include="Models\EquipmentTypeModel\EquipmentType.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\LocationModel\Location.cs" />
     <Compile Include="Models\ViewModels\ManageViewModels.cs" />
@@ -320,20 +321,12 @@
     <Content Include="Views\Manage\AddEquipmentState.cshtml" />
     <Content Include="Views\Manage\AddEquipmentType.cshtml" />
     <Content Include="Views\Manage\CreateRole.cshtml" />
-    <Content Include="Views\Manage\CreateService.cshtml" />
     <Content Include="Views\Manage\CreateServiceType.cshtml" />
     <Content Include="Views\Manage\DeleteEntity.cshtml" />
-    <Content Include="Views\Manage\DeleteEquipment.cshtml" />
     <Content Include="Views\Manage\DeleteRole.cshtml" />
-    <Content Include="Views\Manage\DeleteService.cshtml" />
     <Content Include="Views\Manage\DeleteServiceType.cshtml" />
-    <Content Include="Views\Manage\DetailsEntity.cshtml" />
-    <Content Include="Views\Manage\DetailsService.cshtml" />
-    <Content Include="Views\Manage\EditEquipment.cshtml" />
-    <Content Include="Views\Manage\EditService.cshtml" />
     <Content Include="Views\Manage\EditServiceType.cshtml" />
     <Content Include="Views\Manage\ListEntities.cshtml" />
-    <Content Include="Views\Manage\ListEquipments.cshtml" />
     <Content Include="Views\Manage\ListRole.cshtml" />
     <Content Include="Views\Manage\ListServiceType.cshtml" />
     <Content Include="Views\Manage\RegisterEmployee.cshtml" />
@@ -398,6 +391,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201812300103413_x222dd.resx">
       <DependentUpon>201812300103413_x222dd.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201812302054277_x33.resx">
+      <DependentUpon>201812302054277_x33.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

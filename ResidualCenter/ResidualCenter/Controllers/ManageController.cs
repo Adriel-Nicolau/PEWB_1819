@@ -410,22 +410,7 @@ namespace ResidualCenter.Controllers
             return View(entities.ToList());
         }
 
-        // GET: Entities/Details/5
-        public ActionResult DetailsEntity(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Entity entity = residual.Entities.Find(id);
-            if (entity == null)
-            {
-                return HttpNotFound();
-            }
-            return View(entity);
-        }
-
-
+       
 
         // GET: Manage/Delete/5
         public ActionResult DeleteEntity(string id)
@@ -514,143 +499,7 @@ namespace ResidualCenter.Controllers
             return View(model);
         }
 
-        // GET: Manage/Equipments
-        public ActionResult ListEquipments()
-        {
-            var equipments = residual.Equipments.Include(e => e.EquipmentState).Include(e => e.EquipmentType).Include(e => e.ServiceType);
-            return View(equipments.ToList());
-        }
-
-
-        // GET: Manage/Create
-        public ActionResult AddEquipment()
-        {
-            ViewBag.EquipmentStateID = new SelectList(residual.EquipmentStates, "ID", "Name");
-            ViewBag.EquipmentTypeID = new SelectList(residual.EquipmentTypes, "ID", "Name");
-            ViewBag.ServiceTypeID = new SelectList(residual.ServicesTypes, "ID", "Name");
-            return View();
-        }
-
-
-        [HttpPost]
-        public ActionResult AddEquipment(AddEquipmentViewModel model)
-        {
-            if (ModelState.IsValid)
-            {
-                for (int i = 0; i < model.Quantity; i++)
-                {
-                    Equipment equipment = new Equipment
-                    {
-                        EquipmentTypeID = model.EquipmentTypeID,
-                        EquipmentStateID = model.EquipmentStateID,
-                        ServiceTypeID = model.ServiceTypeID,
-                        Name = model.Name,
-
-
-                    };
-                    residual.Equipments.Add(equipment);
-                }
-
-
-
-                residual.SaveChanges();
-
-
-                return RedirectToAction("ListEquipments", "Manage");
-
-            }
-            return RedirectToAction("Index");
-        }
-        // POST: Equipment
-        public ActionResult AddEquipmentType()
-        {
-            var equipmentType = new EquipmentType();
-            return View(equipmentType);
-        }
-        [HttpPost]
-        public ActionResult AddEquipmentType(EquipmentType equipmentType)
-        {
-
-            residual.EquipmentTypes.Add(equipmentType);
-            residual.SaveChanges();
-            return RedirectToAction("ListEquipments", "Manage");
-
-        } // POST: Equipment
-        public ActionResult AddEquipmentState()
-        {
-            var equipmentState = new EquipmentState();
-            return View(equipmentState);
-        }
-        [HttpPost]
-        public ActionResult AddEquipmentState(EquipmentState equipmentState)
-        {
-
-            residual.EquipmentStates.Add(equipmentState);
-            residual.SaveChanges();
-            return RedirectToAction("ListEquipments", "Manage");
-
-        }
-
-        // GET: Equipments/Delete/5
-        public ActionResult DeleteEquipment(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Equipment equipment = residual.Equipments.Find(id);
-            if (equipment == null)
-            {
-                return HttpNotFound();
-            }
-            return View(equipment);
-        }
-
-        // POST: Equipments/Delete/5
-        [HttpPost, ActionName("DeleteEquipment")]
-        [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmedEquipment(int id)
-        {
-            Equipment equipment = residual.Equipments.Find(id);
-            residual.Equipments.Remove(equipment);
-            residual.SaveChanges();
-            return RedirectToAction("Index");
-        }
-        // GET: Equipments/Edit/5
-        public ActionResult EditEquipment(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Equipment equipment = residual.Equipments.Find(id);
-            if (equipment == null)
-            {
-                return HttpNotFound();
-            }
-            ViewBag.EquipmentStateID = new SelectList(residual.EquipmentStates, "ID", "Name", equipment.EquipmentStateID);
-            ViewBag.EquipmentTypeID = new SelectList(residual.EquipmentTypes, "ID", "Name", equipment.EquipmentTypeID);
-            ViewBag.ServiceTypeID = new SelectList(residual.ServicesTypes, "ID", "Name", equipment.ServiceTypeID);
-            return View(equipment);
-        }
-
-        // POST: Equipments/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult EditEquipment([Bind(Include = "ID,EquipmentTypeID,EquipmentStateID,Name")] Equipment equipment)
-        {
-            if (ModelState.IsValid)
-            {
-                residual.Entry(equipment).State = EntityState.Modified;
-                residual.SaveChanges();
-                return RedirectToAction("Index");
-            }
-            ViewBag.EquipmentStateID = new SelectList(residual.EquipmentStates, "ID", "Name", equipment.EquipmentStateID);
-            ViewBag.EquipmentTypeID = new SelectList(residual.EquipmentTypes, "ID", "Name", equipment.EquipmentTypeID);
-            return View(equipment);
-        }
+     
         //SERVICE TYPE STUFF
         public ActionResult ListServiceType()
         {
@@ -673,7 +522,7 @@ namespace ResidualCenter.Controllers
             {
                 residual.ServicesTypes.Add(serviceType);
                 residual.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("ListServiceType");
             }
 
             return View(serviceType);
@@ -703,7 +552,7 @@ namespace ResidualCenter.Controllers
             {
                 residual.Entry(serviceType).State = EntityState.Modified;
                 residual.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("ListServiceType");
             }
             return View(serviceType);
         }
@@ -731,7 +580,7 @@ namespace ResidualCenter.Controllers
             ServiceType serviceType = residual.ServicesTypes.Find(id);
             residual.ServicesTypes.Remove(serviceType);
             residual.SaveChanges();
-            return RedirectToAction("Index");
+            return RedirectToAction("ListServiceType");
         }
 
 

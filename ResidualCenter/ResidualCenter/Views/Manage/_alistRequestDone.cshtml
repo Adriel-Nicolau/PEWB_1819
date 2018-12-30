@@ -4,11 +4,13 @@
 {
     @Html.AntiForgeryToken()
 
-    <div class="jumbotron" style="background-color:darkgreen">
+    <div class="jumbotron" style="background-color:darkgreen ;font-size:small; height:auto;width:unset">
 
         <table class="table">
             <tr>
+                <th>
 
+                </th>
                 <th>
                     @Html.DisplayNameFor(model => model.RequestDate)
                 </th>
@@ -30,8 +32,9 @@
                 <th>
                     @Html.DisplayNameFor(model => model.Location)
                 </th>
+
                 <th>
-                    @Html.DisplayNameFor(model => model.Location)
+
                 </th>
             </tr>
             <tr>

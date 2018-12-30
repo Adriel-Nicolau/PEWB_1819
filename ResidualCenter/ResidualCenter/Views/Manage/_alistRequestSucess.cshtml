@@ -2,36 +2,37 @@
 @using (Html.BeginForm("ListServicesRequest", "Manage", FormMethod.Post, new { id = "s", @class = "form-horizontal", role = "form" }))
 {
     @Html.AntiForgeryToken()
-    <div class="jumbotron"  style ="background-color:greenyellow; width:auto; height:auto">
+    <div class="jumbotron" style="background-color:greenyellow ;font-size:small; height:auto;width:unset">
 
         <table class="table" style=" table-layout: auto;    border-collapse: collapse;    width: 100%;">
             <tr>
                 <th>
-                   
+
                 </th>
-                <th  style="width: 100%;"  >
+                <th>
                     @Html.DisplayNameFor(model => model.RequestDate)
                 </th>
-                <th >
+                <th>
                     @Html.DisplayNameFor(model => model.ResidueType.Name)
                 </th>
-                <th >
+                <th>
                     @Html.DisplayNameFor(model => model.ServiceType.Name)
                 </th>
-                <th     style="width:unset" >
+                <th>
                     @Html.DisplayNameFor(model => model.ServiceRequestStatus.Name)
                 </th>
-                <th >
+                <th>
                     @Html.DisplayNameFor(model => model.Description)
                 </th>
-                <th >
+                <th>
                     @Html.DisplayNameFor(model => model.Adress)
                 </th>
-                <th >
+                <th>
                     @Html.DisplayNameFor(model => model.Location)
                 </th>
-                <th >
-                   
+
+                <th>
+
                 </th>
             </tr>
             <tr>
@@ -39,29 +40,29 @@
                 <td>
                     @Html.HiddenFor(model => model.ID)
                 </td>
-                <td align="left"  >
+                <td align="left">
                     @Html.DisplayFor(model => model.RequestDate)
                 </td>
-                <td align="left" >
+                <td align="left">
                     @Html.DisplayFor(model => model.ResidueType.Name)
                 </td>
-                <td align="left" >
+                <td align="left">
                     @Html.DisplayFor(model => model.ServiceType.Name)
                 </td>
-                <td align="left" >
+                <td align="left">
 
                     @Html.DropDownList("ServiceRequestStatusID", null, htmlAttributes: new { @class = "form-control" })
                 </td>
-                <td align="left" >
+                <td align="left">
                     @Html.DisplayFor(model => model.Description)
                 </td>
-                <td align="left" >
+                <td align="left">
                     @Html.DisplayFor(model => model.Adress)
                 </td>
-                <td align="left" >
+                <td align="left">
                     @Html.DisplayFor(model => model.Location)
                 </td>
-              
+
 
                 <td>
                     <div class="form-group">

@@ -4,11 +4,19 @@
     ViewBag.Title = "Index";
 }
 
-<h2>Index</h2>
+<br />
+<br />
+<h2>Lista de Tipos de Serviço</h2>
+
+<br />
 
 <p>
-    @Html.ActionLink("Create New", "CreateServiceType")
+    <button type="button" class="btn btn-primary" onclick=" window.location.href = '@Url.Action("CreateServiceType", "Manage")';">Criar Tipo de Serviço</button>
+
 </p>
+
+<br />
+<br />
 <table class="table">
     <tr>
         <th>
@@ -24,10 +32,14 @@
                 @Html.DisplayFor(modelItem => item.Name)
             </td>
             <td>
-                @Html.ActionLink("Edit", "EditServiceType", new { id = item.ID }) |
+                @Html.ActionLink("Editar", "EditServiceType", new { id = item.ID }) |
                 @Html.ActionLink("Delete", "DeleteServiceType", new { id = item.ID })
             </td>
         </tr>
     }
 
 </table>
+<div class="control-label col-md-2">
+    @Html.ActionLink("Voltar", "Index")
+</div>
+

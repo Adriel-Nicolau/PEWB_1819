@@ -3,7 +3,14 @@
 @{
     ViewBag.Title = "ListRole";
 }
+<br />
+<br />
 <h2>Lista de Roles</h2>
+
+<br />
+<br />
+<br />
+
 <!-- no onclick vou para outra pagina Argumentos(Action,Controller) -->
 <button type="button" class="btn btn-primary" onclick=" window.location.href = '@Url.Action("CreateRole", "Manage")';">Criar Role</button>
 <br />
@@ -26,9 +33,7 @@
                 @Html.DisplayFor(modelItem => item.Name)
             </td>
             <td align="center">
-                @Html.ActionLink("Editar", "EditRole", new { id = item.Id }) |
-                @Html.ActionLink("Detalhes", "DetailsRole", new { id = item.Id }) |
-                @Html.ActionLink("Remover", "DeleteRole", new { id = item.Id })
+                @Html.ActionLink("Editar", "EditRole", new { id = item.Id })
             </td>
         </tr>
 
@@ -36,4 +41,8 @@
 
 </table>
 
+
+<div class="control-label col-md-2">
+    @Html.ActionLink("Voltar", "Index")
+</div>
 
