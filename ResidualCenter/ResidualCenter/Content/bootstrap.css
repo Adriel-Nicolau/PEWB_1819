@@ -7101,3 +7101,6 @@ button.close {
         font-size: 63px;
     }
 }
+table .absorbing-column {
+    width: 100%;
+}
