@@ -1,6 +1,6 @@
 ﻿@model ResidualCenter.Models.ServiceRequest
 
-<div class="jumbotron alert-success">
+<div class="jumbotron" style="background-color:darkgoldenrod; font-size:small; height:auto;width:unset">
     <table class="table">
 
         <tr>
@@ -53,7 +53,7 @@
                 @Html.DisplayFor(model => model.Location)
             </td>
             <td align="left">
-                <input type="button" value="Detail" class="btn btn-primary" onclick="location.href='@Url.Action("GetService", "Employee")?id=' + document.getElementById('serviceID').value" />
+                <input type="button" value="Aceitar" class="btn btn-primary" onclick="location.href='@Url.Action("GetService", "Employee")?id=' + document.getElementById('serviceID').value" />
             </td>
         </tr>
     </table>

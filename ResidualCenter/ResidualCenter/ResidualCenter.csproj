@@ -242,6 +242,10 @@
     <Compile Include="Migrations\201812302054277_x33.Designer.cs">
       <DependentUpon>201812302054277_x33.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201812310249466_222.cs" />
+    <Compile Include="Migrations\201812310249466_222.Designer.cs">
+      <DependentUpon>201812310249466_222.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\ServiceRequestStatus.cs" />
     <Compile Include="Models\ViewModels\AccountViewModels.cs" />
@@ -249,6 +253,7 @@
     <Compile Include="Models\EntityModel\Entity.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\LocationModel\Location.cs" />
+    <Compile Include="Models\ViewModels\EmployeeViewModel.cs" />
     <Compile Include="Models\ViewModels\ManageViewModels.cs" />
     <Compile Include="Models\ResidualCenterContext.cs" />
     <Compile Include="Models\ResidueTypeModel\ResidueType.cs" />
@@ -341,13 +346,16 @@
     <Content Include="Views\Client\_listRequestWaiting.cshtml" />
     <Content Include="Views\Client\_listRequestSucess.cshtml" />
     <Content Include="Views\Client\_listRequestRefused.cshtml" />
-    <Content Include="Views\Client\_listRequestDone.cshtml" />
     <Content Include="Views\Manage\_listEntityEmployee.cshtml" />
     <Content Include="Views\Manage\_listEntityClient.cshtml" />
     <Content Include="Views\Employee\ListServices.cshtml" />
     <Content Include="Views\Employee\_listRequestSucess.cshtml" />
     <Content Include="Views\Employee\_listRequestDone.cshtml" />
     <Content Include="Views\Client\_listRequestProgress.cshtml" />
+    <Content Include="Views\Client\_listRequestDone.cshtml" />
+    <Content Include="Views\Employee\Index.cshtml" />
+    <Content Include="Views\Employee\CloseServices.cshtml" />
+    <Content Include="Views\Employee\_listRequestProgress.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -395,6 +403,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201812302054277_x33.resx">
       <DependentUpon>201812302054277_x33.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201812310249466_222.resx">
+      <DependentUpon>201812310249466_222.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

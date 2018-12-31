@@ -16,7 +16,7 @@ namespace ResidualCenter.Models
         [Required]
         public int ServiceTypeID { get; set; }
 
-        public string Quantity { get; set; }
+        public int Quantity { get; set; }
 
         [Required]
         [DataType(DataType.Date)]

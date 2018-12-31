@@ -1,0 +1,46 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<div class="row">
+
+    <div class="col-sm-4">
+        <div class="card card-default">
+            <div class="card-header" style="display: flex;background-color:darkslateblue;color:aliceblue; justify-content: center;">Lista de Serviços</div>
+            <div class="card-body card-5-7">
+                <div class="card-left">
+                    <i class="fas  fa-list-ul fa-w-14 fa-8x"></i>
+                </div>
+               
+            </div>
+            <div class="card-footer" style="display: flex; justify-content: center;">
+
+                <input type="button" style="background-color:darkslateblue" value="Serviços" class="btn btn-primary" onclick="location.href='@Url.Action("ListServices", "Employee")';" />
+            </div>
+        </div>
+    </div>
+
+
+ 
+    <div class="col-sm-4">
+        <div class="card card-default">
+            <div class="card-header" style="display: flex;background-color:darkslateblue;color:aliceblue; justify-content: center;">Fechar Serviço</div>
+            <div class="card-body card-5-7">
+                <div class="card"  style="display: flex; justify-content: center;">
+                    <i class="fas fa-calendar-check fa-w-14 fa-8x"></i>
+                </div>
+
+            </div>
+            <div class="card-footer" style="display: flex; justify-content: center;">
+
+                <input type="button" style="background-color:darkslateblue" value="Fechar" class="btn btn-primary" onclick="location.href='@Url.Action("CloseServices", "Employee")';" />
+            </div>
+        </div>
+    </div>
+
+
+    
+</div>

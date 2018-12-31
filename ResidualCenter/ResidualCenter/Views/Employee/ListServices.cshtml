@@ -3,8 +3,6 @@
     ViewBag.Title = "ListServices";
 }
 
-<h2>ListServices</h2>
-
 
 <br />
 <br />
@@ -13,6 +11,18 @@
 <br />
 <br />
 <br />
+@{
+    if (ViewBag.error != null)
+    {
+        <div class="alert alert-danger">
+            @Html.ValidationMessage("CustomError")
+        </div>
+    }
+
+}
+
+
+
 
 
 <div class="container">
@@ -53,3 +63,8 @@
         </div>
     </div>
 </div>
+
+<div class="control-label col-md-2">
+    @Html.ActionLink("Voltar", "Index")
+</div>
+

@@ -1,12 +1,10 @@
-﻿
-@model ResidualCenter.Models.ServiceRequest
-@using (Html.BeginForm("ListServicesRequest", "Manage", FormMethod.Post, new { id = "d", @class = "form-horizontal", role = "form" }))
+﻿@model ResidualCenter.Models.ServiceRequest
+@using (Html.BeginForm("CloseServices", "Employee", FormMethod.Post, new { id = "close", @class = "form-horizontal", role = "form" }))
 {
     @Html.AntiForgeryToken()
-
-    <div class="jumbotron" style="background-color:darkgreen ;font-size:small; height:auto;width:unset">
-
+    <div class="jumbotron" style="background-color:gray; font-size:small; height:auto;width:unset">
         <table class="table">
+
             <tr>
                 <th>
 
@@ -35,16 +33,12 @@
                 <th>
                     @Html.DisplayNameFor(model => model.Location)
                 </th>
-
                 <th>
 
                 </th>
             </tr>
             <tr>
-
-                <td>
-                    @Html.HiddenFor(model => model.ID)
-                </td>
+                <td align="left"> @Html.HiddenFor(model => model.ID)</td>
                 <td align="left">
                     @Html.DisplayFor(model => model.RequestDate)
                 </td>
@@ -52,13 +46,16 @@
                     @Html.DisplayFor(model => model.ResidueType.Name)
                 </td>
                 <td align="left">
-                    @Html.DisplayNameFor(model => model.Quantity)
+               
+                        @Html.EditorFor(model => model.Quantity, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.Quantity, "", new { @class = "text-danger" })
+                  
                 </td>
                 <td align="left">
                     @Html.DisplayFor(model => model.ServiceType.Name)
                 </td>
                 <td align="left">
-                    @Html.DropDownList("ServiceRequestStatusID", null, htmlAttributes: new { @class = "form-control" })
+                    @Html.DisplayFor(model => model.ServiceRequestStatus.Name)
                 </td>
                 <td align="left">
                     @Html.DisplayFor(model => model.Description)
@@ -69,18 +66,14 @@
                 <td align="left">
                     @Html.DisplayFor(model => model.Location)
                 </td>
-
                 <td>
                     <div class="form-group">
                         <div class="col-md-offset-2 col-md-10">
-                            <input type="submit" form="d" class="btn btn-default" value="Alterar" />
+                            <input type="submit" form="close" class="btn btn-default" value="Fechar" />
                         </div>
                     </div>
                 </td>
-
             </tr>
         </table>
-
     </div>
-
 }

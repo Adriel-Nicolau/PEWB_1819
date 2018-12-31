@@ -1,0 +1,35 @@
+﻿@model IEnumerable<ResidualCenter.Models.ServiceRequest>
+@{
+    ViewBag.Title = "CloseServices";
+}
+
+<h2>CloseServices</h2>
+
+
+
+<br />
+<br />
+<h2>Fechar Serviços</h2>
+
+<br />
+<br />
+<br />
+
+
+<div class="container">
+
+    @{
+        foreach (var item in Model)
+        {
+
+            @Html.Partial("_listRequestProgress", item)
+
+
+        }
+    }
+</div>
+
+<div class="control-label col-md-2">
+    @Html.ActionLink("Voltar", "Index")
+</div>
+

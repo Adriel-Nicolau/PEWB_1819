@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using ResidualCenter.Models;
+using ResidualCenter.Models.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
@@ -35,7 +36,7 @@ namespace ResidualCenter.Controllers
         // GET: Employee
         public ActionResult Index()
         {
-            return RedirectToAction("ListServices");
+            return View();
         }
 
 
@@ -62,9 +63,9 @@ namespace ResidualCenter.Controllers
         //    return View(service);
         //}
         // @Html.ValidationSummary(true)  
-        
+
         [AllowAnonymous]
-       
+
         public ActionResult GetService(int? id)
         {
             int count = 0;
@@ -82,12 +83,13 @@ namespace ResidualCenter.Controllers
                     }
                 }
 
-                if (count == 0)
+                if (count >= 3)
                 {
 
-                    ModelState.AddModelError("", "Limite maximo de Serviços para o dia " + service.RequestDate.ToShortDateString());
+                    ModelState.AddModelError("CustomError", "Limite máximo de Serviços para o dia " + service.RequestDate.ToShortDateString());
                     var requestList = residual.ServiceRequests.Where(x => x.ServiceRequestStatus.Name.Equals(APPROVED) || x.ServiceRequestStatus.Name.Equals(DONE)).ToList();
-                    return View(requestList);
+                    ViewBag.error = 1;
+                    return View("ListServices",requestList);
                 }
                 else
                 {
@@ -106,5 +108,30 @@ namespace ResidualCenter.Controllers
             return RedirectToAction("ListServices");
         }
 
+        public ActionResult CloseServices()
+        {
+            var userID = User.Identity.GetUserId();
+            Entity entity = residual.Entities.Where(user => user.UserId == userID).FirstOrDefault();
+            var approvedList = entity.ServiceRequest.Where(x => x.ServiceRequestStatus.ID == PROGRESS).ToList();
+            return View(approvedList);
+        }
+
+        [HttpPost]
+        [AllowAnonymous]
+        [ValidateAntiForgeryToken]
+        public ActionResult CloseServices(EmployeeViewModel.CloseServices closeServices)
+        {
+            var userID = User.Identity.GetUserId();
+            ServiceRequest sr = residual.ServiceRequests.Find(closeServices.ID);
+            sr.Quantity = closeServices.Quantity;
+            sr.ServiceRequestStatusID = 3;
+            residual.Entry(sr).State = EntityState.Modified;
+            residual.SaveChanges();
+
+
+           
+            return RedirectToAction("Index");
+        }
+        
     }
 }
