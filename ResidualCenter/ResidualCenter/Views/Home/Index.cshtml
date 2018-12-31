@@ -1,4 +1,5 @@
-﻿@{
+﻿@using Microsoft.AspNet.Identity
+@{
     ViewBag.Title = "Home Page";
 }
 <br />
@@ -8,13 +9,19 @@
 
     <div class="descricao">
         <h1>Bem-vindo!</h1>
-        <p class="lead">Plataforma de auxilio para quem procura as melhores opções para os seus filhos.</p>
+        <p class="lead">Se tens residuos que queiras te ver livre, nos estamos ca para ajudar-te.</p>
+      
+        <ul class="nav navbar-nav">
+            @if (!Request.IsAuthenticated)
+            {
+                <li>@Html.ActionLink("Criar Conta", "Register", "Account", routeValues: null, htmlAttributes: new { id = "registerLink" })</li>
+            }
 
-        <h2>Crie uma Conta!</h2>
-        <ul>
-            <li>@Html.ActionLink("Criar Conta", "Register", "Account", routeValues: null, htmlAttributes: new { id = "registerLink" })</li>
+            <li>@Html.ActionLink("Sobre Nós", "About", "Home")</li>
+            <li>@Html.ActionLink("Contactos", "Contact", "Home")</li>
         </ul>
     </div>
+       
     <div class="logo">
 
         <img class="logoIMG" src="~/Content/residual.png" />

@@ -18,6 +18,7 @@
         <li class="active"><a data-toggle="pill" href="#aceite">Aceites</a></li>
         <li><a data-toggle="pill" href="#pendente">Pendentes</a></li>
         <li><a data-toggle="pill" href="#recusado">Recusados</a></li>
+        <li><a data-toggle="pill" href="#progresso">Destacado</a></li>
         <li><a data-toggle="pill" href="#finalizado">Finalizado</a></li>
     </ul>
 
@@ -61,6 +62,19 @@
                 }
             }
         </div>
+        <div id="progresso" class="tab-pane fade">
+            <br />
+            @{
+                foreach (var item in Model)
+                {
+                    if (item.ServiceRequestStatus.Name.Equals("Destacado"))
+                    {
+                        @Html.Partial("_listRequestProgress", item)
+                    }
+
+                }
+            }
+        </div>
         <div id="finalizado" class="tab-pane fade">
             <br />
             @{
@@ -76,3 +90,9 @@
         </div>
     </div>
 </div>
+
+
+<div class="control-label col-md-2">
+    @Html.ActionLink("Voltar", "Index")
+</div>
+

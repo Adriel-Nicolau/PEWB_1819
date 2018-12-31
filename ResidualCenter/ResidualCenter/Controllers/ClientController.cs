@@ -33,28 +33,16 @@ namespace ResidualCenter.Controllers
         }
         public ActionResult Index()
         {
+            var userID = User.Identity.GetUserId();
+            Entity entity = residual.Entities.Where(user => user.UserId == userID).FirstOrDefault();
+            @ViewBag.userName = entity.Name;
             return View();
         }
 
-        // GET: Client/Details/5
-        public ActionResult Details(int id)
-        {
-            return View();
-        }
-
-
-        // GET: Client/Details/5
-        public ActionResult ListServices()
-        {
-            return View();
-        }
-
-
+       
         // GET: Client/Details/5
         public ActionResult RequestServices()
         {
-
-
             ViewBag.LocationID = new SelectList(residual.Locations, "ID", "Name");
             ViewBag.ServicesTypesID = new SelectList(residual.ServicesTypes, "ID", "Name");
             ViewBag.ResidueTypeID = new SelectList(residual.ResidueTypes, "ID", "Name");
@@ -94,36 +82,26 @@ namespace ResidualCenter.Controllers
             var userID = User.Identity.GetUserId();
             Entity entity = residual.Entities.Where(user => user.UserId == userID).FirstOrDefault();
             var requestList = entity.ServiceRequest;
-            //foreach (var item in requestList)
-            //{
-
-            //    ViewData.Add(new KeyValuePair<string, object>(item.ID.ToString(), item.ServiceRequestStatus.Name));
-            //}
 
             return View(requestList);
         }
-        // GET: Client/Edit/5
-        public ActionResult Edit(int id)
+
+
+        [HttpPost]
+        [AllowAnonymous]
+        [ValidateAntiForgeryToken]
+        public ActionResult CancelRequest (int? id)
         {
+            if (id != null)
+            {
+                ServiceRequest sr = residual.ServiceRequests.Find(id);
+                residual.ServiceRequests.Remove(sr);
+                residual.SaveChanges();
+                return RedirectToAction("ListRequestedServices");
+            }
+         
+
             return View();
         }
-
-        // POST: Client/Edit/5
-        [HttpPost]
-        public ActionResult Edit(int id, FormCollection collection)
-        {
-            try
-            {
-                // TODO: Add update logic here
-
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
-        }
-
-
     }
 }

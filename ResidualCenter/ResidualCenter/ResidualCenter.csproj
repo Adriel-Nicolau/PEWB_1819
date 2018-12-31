@@ -347,6 +347,7 @@
     <Content Include="Views\Employee\ListServices.cshtml" />
     <Content Include="Views\Employee\_listRequestSucess.cshtml" />
     <Content Include="Views\Employee\_listRequestDone.cshtml" />
+    <Content Include="Views\Client\_listRequestProgress.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
