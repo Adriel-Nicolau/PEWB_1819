@@ -85,10 +85,10 @@ namespace ResidualCenter.Controllers
 
                 if (count >= 3)
                 {
-
+                    ViewBag.error = 1;
                     ModelState.AddModelError("CustomError", "Limite máximo de Serviços para o dia " + service.RequestDate.ToShortDateString());
                     var requestList = residual.ServiceRequests.Where(x => x.ServiceRequestStatus.Name.Equals(APPROVED) || x.ServiceRequestStatus.Name.Equals(DONE)).ToList();
-                    ViewBag.error = 1;
+                  
                     return View("ListServices",requestList);
                 }
                 else

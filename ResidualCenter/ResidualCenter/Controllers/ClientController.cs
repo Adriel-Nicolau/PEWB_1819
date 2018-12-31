@@ -54,6 +54,19 @@ namespace ResidualCenter.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult RequestServices(ClientViewModel.RequestService model)
         {
+            DateTime today = DateTime.Today;
+            if (model.ServiceDate <= today)
+            {
+                ViewBag.error = 1;
+                ModelState.AddModelError("CustomError", "A data do Serviço tem de ser superior a " + today.ToShortDateString());
+                ViewBag.LocationID = new SelectList(residual.Locations, "ID", "Name");
+                ViewBag.ServicesTypesID = new SelectList(residual.ServicesTypes, "ID", "Name");
+                ViewBag.ResidueTypeID = new SelectList(residual.ResidueTypes, "ID", "Name");
+                return View();
+
+            }
+            
+
             var userID = User.Identity.GetUserId();
             Entity entity = residual.Entities.Where(user => user.UserId == userID).FirstOrDefault();
             Location location = residual.Locations.Find(model.LocationID);

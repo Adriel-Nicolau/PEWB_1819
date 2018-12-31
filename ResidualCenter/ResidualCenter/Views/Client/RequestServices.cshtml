@@ -14,7 +14,15 @@
 <br />
 <br />
 <br />
+@{
+    if (ViewBag.error != null)
+    {
+        <div class="alert alert-danger">
+            @Html.ValidationMessage("CustomError")
+        </div>
+    }
 
+}
 @using (Html.BeginForm("RequestServices", "Client", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
 {
     @Html.AntiForgeryToken()

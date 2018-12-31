@@ -194,6 +194,17 @@ namespace ResidualCenter.Controllers
 
             if (ModelState.IsValid)
             {
+                DateTime today = DateTime.Today;
+                
+                var idade = ((today - model.BirthDate).TotalDays)/ 366;
+                if (idade<18)
+                {
+                    ViewBag.error = 1;
+                    ModelState.AddModelError("CustomError", "Tem de ter mais de 18 para se registar");
+                    ViewBag.LocationID = new SelectList(residual.Locations, "ID", "Name");
+                    return View();
+
+                }
                 var userAsp = new ApplicationUser { UserName = model.Email, Email = model.Email };
                 var result = await UserManager.CreateAsync(userAsp, model.Password);
                 if (result.Succeeded)
