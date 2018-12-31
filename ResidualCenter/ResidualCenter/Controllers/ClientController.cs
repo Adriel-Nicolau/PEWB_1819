@@ -111,10 +111,10 @@ namespace ResidualCenter.Controllers
 
 
         [HttpPost]
-    
+
         [ValidateAntiForgeryToken]
         [Authorize(Roles = "Client")]
-        public ActionResult CancelRequest (int? id)
+        public ActionResult CancelRequest(int? id)
         {
             if (id != null)
             {
@@ -123,9 +123,43 @@ namespace ResidualCenter.Controllers
                 residual.SaveChanges();
                 return RedirectToAction("ListRequestedServices");
             }
-         
+
 
             return View();
+        }
+        // GET: Client/Details/5
+        //  [Authorize(Roles = "Client")]
+        public ActionResult CreateReview(int serviceID)
+        {
+            
+            ClientViewModel.CreateReview review = new ClientViewModel.CreateReview();
+            var userID = User.Identity.GetUserId();
+            Entity entity = residual.Entities.Where(user => user.UserId == userID).FirstOrDefault();
+            review.EntityID = entity.ID;
+            review.ServiceRequestID = (int)serviceID;
+            return View(review);
+        }
+
+        [HttpPost]
+
+        [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Client")]
+        public ActionResult CreateReview(ClientViewModel.CreateReview review)
+        {
+            Review r = new Review()
+            {
+                Content = review.Content,
+                Rating = review.Rating,
+                ServiceRequestID = review.ServiceRequestID,
+                EntityID = review.EntityID,
+                CreationDate = DateTime.Today,
+
+            };
+            residual.Reviews.Add(r);
+
+            residual.SaveChanges();
+            return RedirectToAction("ListRequestedServices");
+
         }
     }
 }

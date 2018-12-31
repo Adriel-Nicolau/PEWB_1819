@@ -40,5 +40,28 @@ namespace ResidualCenter.Models
             public int LocationID { get; set; } // FK from locationModel
 
         }
+
+        
+
+        public class CreateReview
+        {   
+            [Display(Name = "Conteudo")]
+            //vai ser um picker com as opçoes 
+            public string Content { get; set; }
+
+           
+            [Required]
+            [Display(Name = "Pontuação")]
+            [Range(0,5, ErrorMessage = "Pontuação tem de ser entre 0 e 5")]
+            public int Rating { get; set; } // FK from locationModel
+
+            [Required]
+          
+            public int ServiceRequestID { get; set; } // FK from locationModel
+
+            [Required]
+       
+            public int EntityID { get; set; } // FK from locationModel
+        }
     }
 }

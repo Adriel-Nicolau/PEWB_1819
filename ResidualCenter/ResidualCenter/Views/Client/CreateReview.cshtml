@@ -1,0 +1,26 @@
+﻿@model ResidualCenter.Models.ClientViewModel.CreateReview
+@{
+    ViewBag.Title = "CreateReview";
+}
+
+<h2>CreateReview</h2>
+@using (Html.BeginForm("CreateReview", "Client", FormMethod.Post, new { id = "review", @class = "form-horizontal", role = "form" }))
+{
+    <div class="form-group">
+        @Html.LabelFor(model => model.Content, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.TextAreaFor(model => model.Content, new { rows = "6", cols = "40", @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.Content, "", new { @class = "text-danger" })
+        </div>
+    </div>
+    <div class="form-group">
+        @Html.HiddenFor(model => model.ServiceRequestID)
+        @Html.HiddenFor(model => model.EntityID)
+    </div>
+
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" form="review" class="btn btn-default" value="Enviar" />
+        </div>
+    </div>
+}
