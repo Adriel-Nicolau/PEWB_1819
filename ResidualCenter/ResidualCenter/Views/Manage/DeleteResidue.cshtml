@@ -1,0 +1,43 @@
+﻿@model ResidualCenter.Models.ResidueType
+@{
+    ViewBag.Title = "DeleteResidue";
+}
+<br />
+<br />
+<h2>Delete</h2>
+
+<br />
+<br />
+<br />
+<div>
+    <h4>ResidueType</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Unit)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Unit)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Remover" class="btn btn-default" /> |
+            @Html.ActionLink("Voltar", "ListResidues")
+        </div>
+    }
+</div>

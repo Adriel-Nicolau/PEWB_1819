@@ -46,10 +46,10 @@
                     @Html.DisplayFor(model => model.ResidueType.Name)
                 </td>
                 <td align="left">
-               
-                        @Html.EditorFor(model => model.Quantity, new { htmlAttributes = new { @class = "form-control" } })
-                        @Html.ValidationMessageFor(model => model.Quantity, "", new { @class = "text-danger" })
-                  
+
+                    @Html.EditorFor(model => model.Quantity, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Quantity, "", new { @class = "text-danger" })
+                    @Html.DisplayFor(model => model.ResidueType.Unit)
                 </td>
                 <td align="left">
                     @Html.DisplayFor(model => model.ServiceType.Name)

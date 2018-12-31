@@ -1,86 +1,77 @@
 ﻿
 @model ResidualCenter.Models.ServiceRequest
-@using (Html.BeginForm("ListServicesRequest", "Manage", FormMethod.Post, new { id = "d", @class = "form-horizontal", role = "form" }))
-{
-    @Html.AntiForgeryToken()
 
-    <div class="jumbotron" style="background-color:darkgreen ;font-size:small; height:auto;width:unset">
 
-        <table class="table">
-            <tr>
-                <th>
+<div class="jumbotron" style="background-color:darkgreen ;font-size:small; height:auto;width:unset">
 
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.RequestDate)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.ResidueType.Name)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Quantity)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.ServiceType.Name)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.ServiceRequestStatus.Name)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Description)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Adress)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Location)
-                </th>
+    <table class="table">
+        <tr>
+            <th>
 
-                <th>
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.RequestDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ResidueType.Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Quantity)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ServiceType.Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ServiceRequestStatus.Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Description)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Adress)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Location)
+            </th>
 
-                </th>
-            </tr>
-            <tr>
+            <th>
 
-                <td>
-                    @Html.HiddenFor(model => model.ID)
-                </td>
-                <td align="left">
-                    @Html.DisplayFor(model => model.RequestDate)
-                </td>
-                <td align="left">
-                    @Html.DisplayFor(model => model.ResidueType.Name)
-                </td>
-                <td align="left">
-                    @Html.DisplayNameFor(model => model.Quantity)
-                </td>
-                <td align="left">
-                    @Html.DisplayFor(model => model.ServiceType.Name)
-                </td>
-                <td align="left">
-                    @Html.DropDownList("ServiceRequestStatusID", null, htmlAttributes: new { @class = "form-control" })
-                </td>
-                <td align="left">
-                    @Html.DisplayFor(model => model.Description)
-                </td>
-                <td align="left">
-                    @Html.DisplayFor(model => model.Adress)
-                </td>
-                <td align="left">
-                    @Html.DisplayFor(model => model.Location)
-                </td>
+            </th>
+        </tr>
+        <tr>
 
-                <td>
-                    <div class="form-group">
-                        <div class="col-md-offset-2 col-md-10">
-                            <input type="submit" form="d" class="btn btn-default" value="Alterar" />
-                        </div>
-                    </div>
-                </td>
+            <td>
+                @Html.HiddenFor(model => model.ID)
+            </td>
+            <td align="left">
+                @Html.DisplayFor(model => model.RequestDate)
+            </td>
+            <td align="left">
+                @Html.DisplayFor(model => model.ResidueType.Name)
+            </td>
+            <td align="left">
+                @Html.DisplayNameFor(model => model.Quantity)
+                @Html.DisplayNameFor(model => model.ResidueType.Unit)
+            </td>
+            <td align="left">
+                @Html.DisplayFor(model => model.ServiceType.Name)
+            </td>
+            <td align="left">
+                @Html.DisplayFor(model => model.ServiceRequestStatus.Name)
+            </td>
+            <td align="left">
+                @Html.DisplayFor(model => model.Description)
+            </td>
+            <td align="left">
+                @Html.DisplayFor(model => model.Adress)
+            </td>
+            <td align="left">
+                @Html.DisplayFor(model => model.Location)
+            </td>
 
-            </tr>
-        </table>
 
-    </div>
 
-}
+        </tr>
+    </table>
+
+</div>

@@ -1,5 +1,5 @@
 ﻿@model ResidualCenter.Models.ServiceRequest
-<div class="jumbotron" style="background-color:darkgoldenrod; font-size:small; height:auto;width:unset">
+<div class="jumbotron" style="background-color:cadetblue; font-size:small; height:auto;width:unset">
     <table class="table">
 
         <tr>
@@ -37,7 +37,8 @@
                 @Html.DisplayFor(model => model.ResidueType.Name)
             </td>
             <td align="left">
-                @Html.DisplayFor(model => model.Quantity)
+                @Html.DisplayFor(model => model.Quantity) 
+                @Html.DisplayFor(model => model.ResidueType.Unit)
             </td>
             <td align="left">
                 @Html.DisplayFor(model => model.ServiceType.Name)

@@ -97,7 +97,26 @@
     </div>
 
     <div class="col-sm-4">
-      
+        <div class="card card-default">
+            <div class="card-header" style="display: flex;background-color:darkslateblue;color:aliceblue; justify-content: center;">Lista de Residuos</div>
+            <div class="card-body card-5-7">
+                <div class="card-left">
+                    <i class="fas fa-dumpster fa-w-14 fa-8x"></i> <!-- this icon's 1) style prefix == fas and 2) icon name == igloo -->
+                </div>
+                <div class="card-right">
+                    <ul>
+                        <li>Lista Residuos</li>
+                        <li>Criar Residuos</li>
+                        <li>Editar Residuos</li>
+                        <li>Remover Residuos</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="card-footer" style="display: flex; justify-content: center;">
+
+                <input type="button" style="background-color:darkslateblue" value="Lista" class="btn btn-primary" onclick="location.href='@Url.Action("ListResidues", "Manage")';" />
+            </div>
+        </div>
     </div>
     <div class="col-sm-4">
         <div class="card card-default">

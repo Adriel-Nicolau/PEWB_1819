@@ -1,0 +1,48 @@
+﻿@model IEnumerable<ResidualCenter.Models.ResidueType>
+@{
+    ViewBag.Title = "ListResidues";
+}
+<br />
+<br />
+<h2>Lista de Residuos</h2>
+<br />
+<br />
+<br />
+<!-- no onclick vou para outra pagina Argumentos(Action,Controller) -->
+<button type="button" class="btn btn-primary" onclick=" window.location.href = '@Url.Action("CreateResidue", "Manage")';">Criar Residuo</button>
+<br />
+<br />
+<br />
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Unit)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Unit)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "EditResidue", new { id = item.ID }) |
+                @Html.ActionLink("Delete", "DeleteResidue", new { id = item.ID })
+            </td>
+        </tr>
+    }
+
+</table>
+
+<div class="control-label col-md-2">
+    @Html.ActionLink("Voltar", "Index")
+</div>
+

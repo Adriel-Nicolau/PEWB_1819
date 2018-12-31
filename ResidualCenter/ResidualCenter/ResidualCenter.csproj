@@ -199,6 +199,7 @@
     <Compile Include="Controllers\EmployeeController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\ResidueTypesController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -245,6 +246,10 @@
     <Compile Include="Migrations\201812310249466_222.cs" />
     <Compile Include="Migrations\201812310249466_222.Designer.cs">
       <DependentUpon>201812310249466_222.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201812310316233_2221q.cs" />
+    <Compile Include="Migrations\201812310316233_2221q.Designer.cs">
+      <DependentUpon>201812310316233_2221q.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\ServiceRequestStatus.cs" />
@@ -322,9 +327,6 @@
     <Content Include="Views\Manage\VerifyPhoneNumber.cshtml" />
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
-    <Content Include="Views\Manage\AddEquipment.cshtml" />
-    <Content Include="Views\Manage\AddEquipmentState.cshtml" />
-    <Content Include="Views\Manage\AddEquipmentType.cshtml" />
     <Content Include="Views\Manage\CreateRole.cshtml" />
     <Content Include="Views\Manage\CreateServiceType.cshtml" />
     <Content Include="Views\Manage\DeleteEntity.cshtml" />
@@ -356,6 +358,10 @@
     <Content Include="Views\Employee\Index.cshtml" />
     <Content Include="Views\Employee\CloseServices.cshtml" />
     <Content Include="Views\Employee\_listRequestProgress.cshtml" />
+    <Content Include="Views\Manage\ListResidues.cshtml" />
+    <Content Include="Views\Manage\CreateResidue.cshtml" />
+    <Content Include="Views\Manage\EditResidue.cshtml" />
+    <Content Include="Views\Manage\DeleteResidue.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -406,6 +412,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201812310249466_222.resx">
       <DependentUpon>201812310249466_222.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201812310316233_2221q.resx">
+      <DependentUpon>201812310316233_2221q.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

@@ -37,7 +37,8 @@
                 @Html.DisplayFor(model => model.ResidueType.Name)
             </td>
             <td align="left">
-                @Html.DisplayFor(model => model.Quantity)
+                @Html.DisplayNameFor(model => model.Quantity)
+                @Html.DisplayNameFor(model => model.ResidueType.Unit)
             </td>
             <td align="left">
                 @Html.DisplayFor(model => model.ServiceType.Name)

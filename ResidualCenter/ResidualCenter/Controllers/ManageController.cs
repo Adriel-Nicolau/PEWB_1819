@@ -608,29 +608,88 @@ namespace ResidualCenter.Controllers
          
             return RedirectToAction("ListServicesRequest");
         }
-        private IList<SelectListItem> CreateEmployeeList()
+        // GET: ResidueTypes
+        public ActionResult ListResidues()
         {
-            var userManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(context));
-
-            IList<SelectListItem> employeeList = new List<SelectListItem>();
-            var entities = residual.Entities.Include(e => e.Location);
-            foreach (var item in entities)
-            {
-                var role = userManager.GetRoles(item.UserId).FirstOrDefault();
-                if (role.Equals("Employee"))
-                {
-                    employeeList.Add(new SelectListItem { Text = item.Name, Value = item.ID.ToString() });
-                }
-
-            }
-            if (employeeList == null)
-            {
-                employeeList.Add(new SelectListItem { Text = "não ha empregados", Value = "-1" });
-            }
-            return employeeList;
+            return View(residual.ResidueTypes.ToList());
+        }
+        public ActionResult CreateResidue()
+        {
+            return View();
         }
 
-     
+        // POST: ResidueTypes/Create
+        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult CreateResidue([Bind(Include = "ID,Name,Unit")] ResidueType residueType)
+        {
+            if (ModelState.IsValid)
+            {
+                residual.ResidueTypes.Add(residueType);
+                residual.SaveChanges();
+                return RedirectToAction("ListResidues");
+            }
+
+            return View(residueType);
+        }
+        // GET: ResidueTypes/Edit/5
+        public ActionResult EditResidue(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            ResidueType residueType = residual.ResidueTypes.Find(id);
+            if (residueType == null)
+            {
+                return HttpNotFound();
+            }
+            return View(residueType);
+        }
+
+        // POST: ResidueTypes/Edit/5
+        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult EditResidue([Bind(Include = "ID,Name,Unit")] ResidueType residueType)
+        {
+            if (ModelState.IsValid)
+            {
+                residual.Entry(residueType).State = EntityState.Modified;
+                residual.SaveChanges();
+                return RedirectToAction("ListResidues");
+            }
+            return View(residueType);
+        }
+
+        // GET: ResidueTypes/Delete/5
+        public ActionResult DeleteResidue(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            ResidueType residueType = residual.ResidueTypes.Find(id);
+            if (residueType == null)
+            {
+                return HttpNotFound();
+            }
+            return View(residueType);
+        }
+
+        // POST: ResidueTypes/Delete/5
+        [HttpPost, ActionName("DeleteResidue")]
+        [ValidateAntiForgeryToken]
+        public ActionResult DeleteConfirmed(int id)
+        {
+            ResidueType residueType = residual.ResidueTypes.Find(id);
+            residual.ResidueTypes.Remove(residueType);
+            residual.SaveChanges();
+            return RedirectToAction("ListResidues");
+        }
         #region Helpers
         // Used for XSRF protection when adding external logins
         private const string XsrfKey = "XsrfId";
