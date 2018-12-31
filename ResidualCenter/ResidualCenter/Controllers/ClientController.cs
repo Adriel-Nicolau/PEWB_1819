@@ -31,6 +31,8 @@ namespace ResidualCenter.Controllers
             this.ApplicationDbContext = new ApplicationDbContext();
             this.UserManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(this.ApplicationDbContext));
         }
+
+        [Authorize(Roles = "Client")]
         public ActionResult Index()
         {
             var userID = User.Identity.GetUserId();
@@ -39,8 +41,9 @@ namespace ResidualCenter.Controllers
             return View();
         }
 
-       
+
         // GET: Client/Details/5
+        [Authorize(Roles = "Client")]
         public ActionResult RequestServices()
         {
             ViewBag.LocationID = new SelectList(residual.Locations, "ID", "Name");
@@ -50,45 +53,52 @@ namespace ResidualCenter.Controllers
         }
 
         [HttpPost]
-        [AllowAnonymous]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Client")]
         public ActionResult RequestServices(ClientViewModel.RequestService model)
         {
-            DateTime today = DateTime.Today;
-            if (model.ServiceDate <= today)
-            {
-                ViewBag.error = 1;
-                ModelState.AddModelError("CustomError", "A data do Serviço tem de ser superior a " + today.ToShortDateString());
-                ViewBag.LocationID = new SelectList(residual.Locations, "ID", "Name");
-                ViewBag.ServicesTypesID = new SelectList(residual.ServicesTypes, "ID", "Name");
-                ViewBag.ResidueTypeID = new SelectList(residual.ResidueTypes, "ID", "Name");
-                return View();
 
+            if (ModelState.IsValid)
+            {
+                DateTime today = DateTime.Today;
+                if (model.ServiceDate <= today)
+                {
+                    ViewBag.error = 1;
+                    ModelState.AddModelError("CustomError", "A data do Serviço tem de ser superior a " + today.ToShortDateString());
+                    ViewBag.LocationID = new SelectList(residual.Locations, "ID", "Name");
+                    ViewBag.ServicesTypesID = new SelectList(residual.ServicesTypes, "ID", "Name");
+                    ViewBag.ResidueTypeID = new SelectList(residual.ResidueTypes, "ID", "Name");
+                    return View();
+
+                }
+
+
+                var userID = User.Identity.GetUserId();
+                Entity entity = residual.Entities.Where(user => user.UserId == userID).FirstOrDefault();
+                Location location = residual.Locations.Find(model.LocationID);
+                ServiceRequest rs = new ServiceRequest()
+                {
+                    RequestDate = model.ServiceDate,
+                    ResidueTypeID = model.ResidueTypeID,
+                    ServiceTypeID = model.ServicesTypesID,
+                    Adress = model.Adress,
+                    Description = model.Description,
+                    Location = location.Name,
+                    ServiceRequestStatusID = 1,
+
+                };
+
+                entity.ServiceRequest.Add(rs);
+
+                residual.SaveChanges();
+                return View("Index");
             }
-            
 
-            var userID = User.Identity.GetUserId();
-            Entity entity = residual.Entities.Where(user => user.UserId == userID).FirstOrDefault();
-            Location location = residual.Locations.Find(model.LocationID);
-            ServiceRequest rs = new ServiceRequest()
-            {
-                RequestDate = model.ServiceDate,
-                ResidueTypeID = model.ResidueTypeID,
-                ServiceTypeID = model.ServicesTypesID,
-                Adress=model.Adress,
-                Description = model.Description,
-                Location = location.Name,
-                ServiceRequestStatusID = 1,
-
-            };
-          
-            entity.ServiceRequest.Add(rs);
-      
-            residual.SaveChanges();
-            return View("Index");
+            return View(model);
         }
 
         // GET: Client/Details/5
+        [Authorize(Roles = "Client")]
         public ActionResult ListRequestedServices()
         {
 
@@ -101,8 +111,9 @@ namespace ResidualCenter.Controllers
 
 
         [HttpPost]
-        [AllowAnonymous]
+    
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Client")]
         public ActionResult CancelRequest (int? id)
         {
             if (id != null)

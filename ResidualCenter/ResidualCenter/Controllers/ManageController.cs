@@ -26,6 +26,7 @@ namespace ResidualCenter.Controllers
         ApplicationDbContext context;
         ResidualCenterContext residual;
 
+
         public ManageController()
         {
             context = new ApplicationDbContext();
@@ -64,6 +65,7 @@ namespace ResidualCenter.Controllers
 
         //
         // GET: /Manage/Index
+        [Authorize(Roles = "Admin")]
         public ActionResult Index(ManageMessageId? message)
         {
             //ViewBag.StatusMessage =
@@ -349,18 +351,22 @@ namespace ResidualCenter.Controllers
         /// </summary>
 
 
-
+        [Authorize(Roles = "Admin")]
         public ActionResult ListRole()
         {
 
             return View(context.Roles.ToList());
         }
+
+        [Authorize(Roles = "Admin")]
         public ActionResult CreateRole()
         {
             var Role = new IdentityRole();
             return View(Role);
         }
         [HttpPost]
+
+        [Authorize(Roles = "Admin")]
         public ActionResult CreateRole(IdentityRole Role)
         {
             context.Roles.Add(Role);
@@ -370,6 +376,7 @@ namespace ResidualCenter.Controllers
 
 
 
+        [Authorize(Roles = "Admin")]
         public ActionResult DeleteRole(string id)
         {
             if (id == null)
@@ -384,6 +391,8 @@ namespace ResidualCenter.Controllers
 
         [HttpPost, ActionName("DeleteRole")]
         [ValidateAntiForgeryToken]
+
+        [Authorize(Roles = "Admin")]
         public ActionResult DeleteConfirmed(string id)
         {
             var role = context.Roles.Find(id);
@@ -392,7 +401,7 @@ namespace ResidualCenter.Controllers
             return RedirectToAction("ListRole");
         }
 
-        // GET: Entities
+        [Authorize(Roles = "Admin")]
         public ActionResult ListEntities()
         {
 
@@ -410,9 +419,10 @@ namespace ResidualCenter.Controllers
             return View(entities.ToList());
         }
 
-       
+
 
         // GET: Manage/Delete/5
+        [Authorize(Roles = "Admin")]
         public ActionResult DeleteEntity(string id)
         {
             if (id == null)
@@ -432,6 +442,7 @@ namespace ResidualCenter.Controllers
         // POST: Entities/Delete/
         [HttpPost, ActionName("DeleteEntity")]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin")]
         public ActionResult DeleteConfirmedEntity(string id)
         {
 
@@ -443,7 +454,8 @@ namespace ResidualCenter.Controllers
             return View();
         }
 
-        [AllowAnonymous]
+
+        [Authorize(Roles = "Admin")]
         public ActionResult RegisterEmployee()
         {
 
@@ -454,8 +466,9 @@ namespace ResidualCenter.Controllers
         //
         // POST: /Account/Register
         [HttpPost]
-        [AllowAnonymous]
+
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin")]
         public async Task<ActionResult> RegisterEmployee(RegisterEmployeeViewModel model)
         {
 
@@ -499,14 +512,16 @@ namespace ResidualCenter.Controllers
             return View(model);
         }
 
-     
+
         //SERVICE TYPE STUFF
+        [Authorize(Roles = "Admin")]
         public ActionResult ListServiceType()
         {
             return View(residual.ServicesTypes.ToList());
         }
 
         // GET: Manage/Create
+        [Authorize(Roles = "Admin")]
         public ActionResult CreateServiceType()
         {
             return View();
@@ -516,6 +531,7 @@ namespace ResidualCenter.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin")]
         public ActionResult CreateServiceType([Bind(Include = "ID,Name")] ServiceType serviceType)
         {
             if (ModelState.IsValid)
@@ -528,6 +544,7 @@ namespace ResidualCenter.Controllers
             return View(serviceType);
         }
         // GET: Manage/Edit/
+        [Authorize(Roles = "Admin")]
         public ActionResult EditServiceType(int? id)
         {
             if (id == null)
@@ -546,6 +563,7 @@ namespace ResidualCenter.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin")]
         public ActionResult EditServiceType([Bind(Include = "ID,Name")] ServiceType serviceType)
         {
             if (ModelState.IsValid)
@@ -558,6 +576,7 @@ namespace ResidualCenter.Controllers
         }
 
         // GET: Manage/Delete/5
+        [Authorize(Roles = "Admin")]
         public ActionResult DeleteServiceType(int? id)
         {
             if (id == null)
@@ -575,6 +594,7 @@ namespace ResidualCenter.Controllers
         // POST: Manage/Delete/5
         [HttpPost, ActionName("DeleteServiceType")]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin")]
         public ActionResult DeleteConfirmedServiceType(int id)
         {
             ServiceType serviceType = residual.ServicesTypes.Find(id);
@@ -583,36 +603,39 @@ namespace ResidualCenter.Controllers
             return RedirectToAction("ListServiceType");
         }
 
-
+        [Authorize(Roles = "Admin")]
         public ActionResult ListServicesRequest()
         {
 
-           
-          //  ViewBag.EmployeeList = CreateEmployeeList();
+
+            //  ViewBag.EmployeeList = CreateEmployeeList();
             ViewBag.ServiceRequestStatusID = new SelectList(residual.ServiceRequestStatus, "ID", "Name");
             return View(residual.ServiceRequests.ToList());
 
         }
 
         [HttpPost]
-        [AllowAnonymous]
         [ValidateAntiForgeryToken]
-        public ActionResult ListServicesRequest(ChangeStatusServiceResquestViewModel changes )
+        [Authorize(Roles = "Admin")]
+        public ActionResult ListServicesRequest(ChangeStatusServiceResquestViewModel changes)
         {
-        
+
             ServiceRequest sr = residual.ServiceRequests.Find(changes.ID);
             sr.ServiceRequestStatusID = changes.ServiceRequestStatusID;
             residual.Entry(sr).State = EntityState.Modified;
             residual.SaveChanges();
 
-         
+
             return RedirectToAction("ListServicesRequest");
         }
         // GET: ResidueTypes
+        [Authorize(Roles = "Admin")]
         public ActionResult ListResidues()
         {
             return View(residual.ResidueTypes.ToList());
         }
+
+        [Authorize(Roles = "Admin")]
         public ActionResult CreateResidue()
         {
             return View();
@@ -623,6 +646,7 @@ namespace ResidualCenter.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin")]
         public ActionResult CreateResidue([Bind(Include = "ID,Name,Unit")] ResidueType residueType)
         {
             if (ModelState.IsValid)
@@ -634,7 +658,8 @@ namespace ResidualCenter.Controllers
 
             return View(residueType);
         }
-        // GET: ResidueTypes/Edit/5
+
+        [Authorize(Roles = "Admin")]
         public ActionResult EditResidue(int? id)
         {
             if (id == null)
@@ -654,6 +679,7 @@ namespace ResidualCenter.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin")]
         public ActionResult EditResidue([Bind(Include = "ID,Name,Unit")] ResidueType residueType)
         {
             if (ModelState.IsValid)
@@ -666,6 +692,7 @@ namespace ResidualCenter.Controllers
         }
 
         // GET: ResidueTypes/Delete/5
+        [Authorize(Roles = "Admin")]
         public ActionResult DeleteResidue(int? id)
         {
             if (id == null)
@@ -681,8 +708,10 @@ namespace ResidualCenter.Controllers
         }
 
         // POST: ResidueTypes/Delete/5
+
         [HttpPost, ActionName("DeleteResidue")]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin")]
         public ActionResult DeleteConfirmed(int id)
         {
             ResidueType residueType = residual.ResidueTypes.Find(id);

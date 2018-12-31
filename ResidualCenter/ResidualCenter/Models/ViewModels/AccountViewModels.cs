@@ -86,7 +86,9 @@ namespace ResidualCenter.Models
         [StringLength(50, ErrorMessage = "Nome não pode ter mais que 50 caracteres")]
         public string Name { get; set; }
 
-        [Required]
+    
+        [Required(ErrorMessage = "Contacto obrigator")]
+        [RegularExpression(@"^(\d{9})$", ErrorMessage = "Introduza um numero valido.")]
         [Display(Name = "Contacto")]
         public int Contact { get; set; }
 

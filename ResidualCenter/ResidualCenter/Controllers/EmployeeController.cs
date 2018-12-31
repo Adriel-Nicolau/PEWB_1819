@@ -34,6 +34,7 @@ namespace ResidualCenter.Controllers
             this.UserManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(this.ApplicationDbContext));
         }
         // GET: Employee
+        [Authorize(Roles = "Employee")]
         public ActionResult Index()
         {
             return View();
@@ -42,6 +43,7 @@ namespace ResidualCenter.Controllers
 
 
         // GET: Client/Details/5
+        [Authorize(Roles = "Employee")]
         public ActionResult ListServices()
         {
 
@@ -64,8 +66,8 @@ namespace ResidualCenter.Controllers
         //}
         // @Html.ValidationSummary(true)  
 
-        [AllowAnonymous]
-
+       
+        [Authorize(Roles = "Employee")]
         public ActionResult GetService(int? id)
         {
             int count = 0;
@@ -107,7 +109,7 @@ namespace ResidualCenter.Controllers
             }
             return RedirectToAction("ListServices");
         }
-
+        [Authorize(Roles = "Employee")]
         public ActionResult CloseServices()
         {
             var userID = User.Identity.GetUserId();
@@ -117,10 +119,13 @@ namespace ResidualCenter.Controllers
         }
 
         [HttpPost]
-        [AllowAnonymous]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Employee")]
         public ActionResult CloseServices(EmployeeViewModel.CloseServices closeServices)
         {
+            if (ModelState.IsValid)
+            {
+
             var userID = User.Identity.GetUserId();
             ServiceRequest sr = residual.ServiceRequests.Find(closeServices.ID);
             sr.Quantity = closeServices.Quantity;
@@ -131,6 +136,10 @@ namespace ResidualCenter.Controllers
 
            
             return RedirectToAction("Index");
+            }
+
+            return View(closeServices);
+
         }
         
     }
