@@ -27,9 +27,14 @@
             <th>
                 @Html.DisplayNameFor(model => model.Location)
             </th>
-            
+            <th>
+
+            </th>
         </tr>
         <tr>
+            <td>
+                @Html.HiddenFor(model => model.ID, htmlAttributes: new { id = "serviceID" })
+            </td>
             <td align="left">
                 @Html.DisplayFor(model => model.RequestDate)
             </td>
@@ -37,7 +42,7 @@
                 @Html.DisplayFor(model => model.ResidueType.Name)
             </td>
             <td align="left">
-                @Html.DisplayFor(model => model.Quantity) 
+                @Html.DisplayFor(model => model.Quantity)
                 @Html.DisplayFor(model => model.ResidueType.Unit)
             </td>
             <td align="left">
@@ -54,6 +59,10 @@
             </td>
             <td align="left">
                 @Html.DisplayFor(model => model.Location)
+            </td>
+            <td>
+
+                <input type="button" value="Review" class="btn btn-primary" onclick="location.href='@Url.Action("ViewReview", "Employee")?id=' + document.getElementById('serviceID').value" />
             </td>
         </tr>
     </table>

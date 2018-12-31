@@ -21,9 +21,9 @@ namespace ResidualCenter.Models
 
         public string Content { get; set; }
         public DateTime CreationDate { get; set; }
-        public int Rating { get; set; }
-        public bool Seen { get; set; }
 
+        [Range(0, 5, ErrorMessage = "Pontuação tem de ser entre 0 e 5")]
+        public int Rating { get; set; }
 
         public virtual Entity Entity { get; set; }
         public virtual ServiceRequest ServiceRequest { get; set; }

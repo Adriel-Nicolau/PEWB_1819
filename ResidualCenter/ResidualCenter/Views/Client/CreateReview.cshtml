@@ -1,11 +1,19 @@
-﻿@model ResidualCenter.Models.ClientViewModel.CreateReview
+﻿@model ResidualCenter.Models.ViewModels.ReviewViewModel.CreateReview
 @{
-                /**/
 
-                ViewBag.Title = "CreateReview";
+    ViewBag.Title = "CreateReview";
 }
 
-<h2>CreateReview</h2>
+
+<br />
+<br />
+<h2>Review</h2>
+
+<br />
+<br />
+<br />
+
+
 @using (Html.BeginForm("CreateReview", "Client", FormMethod.Post, new { id = "review", @class = "form-horizontal", role = "form" }))
 {
     @Html.AntiForgeryToken()
@@ -34,3 +42,8 @@
         </div>
     </div>
 }
+
+<div class="control-label col-md-2">
+    @Html.ActionLink("Voltar", "ListRequestedServices")
+</div>
+

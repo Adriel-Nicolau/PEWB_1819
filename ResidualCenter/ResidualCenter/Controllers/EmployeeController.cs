@@ -66,7 +66,7 @@ namespace ResidualCenter.Controllers
         //}
         // @Html.ValidationSummary(true)  
 
-       
+
         [Authorize(Roles = "Employee")]
         public ActionResult GetService(int? id)
         {
@@ -90,8 +90,8 @@ namespace ResidualCenter.Controllers
                     ViewBag.error = 1;
                     ModelState.AddModelError("CustomError", "Limite máximo de Serviços para o dia " + service.RequestDate.ToShortDateString());
                     var requestList = residual.ServiceRequests.Where(x => x.ServiceRequestStatus.Name.Equals(APPROVED) || x.ServiceRequestStatus.Name.Equals(DONE)).ToList();
-                  
-                    return View("ListServices",requestList);
+
+                    return View("ListServices", requestList);
                 }
                 else
                 {
@@ -126,21 +126,35 @@ namespace ResidualCenter.Controllers
             if (ModelState.IsValid)
             {
 
-            var userID = User.Identity.GetUserId();
-            ServiceRequest sr = residual.ServiceRequests.Find(closeServices.ID);
-            sr.Quantity = closeServices.Quantity;
-            sr.ServiceRequestStatusID = 3;
-            residual.Entry(sr).State = EntityState.Modified;
-            residual.SaveChanges();
+                var userID = User.Identity.GetUserId();
+                ServiceRequest sr = residual.ServiceRequests.Find(closeServices.ID);
+                sr.Quantity = closeServices.Quantity;
+                sr.ServiceRequestStatusID = 3;
+                residual.Entry(sr).State = EntityState.Modified;
+                residual.SaveChanges();
 
 
-           
-            return RedirectToAction("Index");
+
+                return RedirectToAction("Index");
             }
 
             return View(closeServices);
 
         }
-        
+
+        [Authorize(Roles = "Employee")]
+        public ActionResult ViewReview(int ? id)
+        {
+            if (id != null)
+            {
+
+            
+            ServiceRequest sr = residual.ServiceRequests.Where(x => x.ID == id).FirstOrDefault();
+            Review rw = residual.Reviews.Where(r => r.ServiceRequestID == sr.ID).FirstOrDefault();
+            return View(rw);
+            }
+            return View("Index");
+        }
+
     }
 }

@@ -1,10 +1,16 @@
 ﻿@model ResidualCenter.Models.Review
 
 @{
-    ViewBag.Title = "Details";
+    ViewBag.Title = "ViewReview";
 }
 
-<h2>Details</h2>
+<br />
+<br />
+<h2> Review</h2>
+
+<br />
+<br />
+<br />
 
 <div>
     <h4>Review</h4>
@@ -50,17 +56,10 @@
             @Html.DisplayFor(model => model.Rating)
         </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Seen)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Seen)
-        </dd>
-
     </dl>
 </div>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.ID }) |
-    @Html.ActionLink("Back to List", "Index")
-</p>
+<div class="control-label col-md-2">
+    @Html.ActionLink("Voltar", "ListServices")
+</div>
+
+

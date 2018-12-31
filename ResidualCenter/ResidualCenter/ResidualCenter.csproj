@@ -251,7 +251,16 @@
     <Compile Include="Migrations\201812310316233_2221q.Designer.cs">
       <DependentUpon>201812310316233_2221q.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201812311426034_x223133.cs" />
+    <Compile Include="Migrations\201812311426034_x223133.Designer.cs">
+      <DependentUpon>201812311426034_x223133.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201812311553264_x223133w.cs" />
+    <Compile Include="Migrations\201812311553264_x223133w.Designer.cs">
+      <DependentUpon>201812311553264_x223133w.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Models\ViewModels\ReviewViewModel.cs" />
     <Compile Include="Models\ServiceRequestStatusModel\ServiceRequestStatus.cs" />
     <Compile Include="Models\ViewModels\AccountViewModels.cs" />
     <Compile Include="Models\ViewModels\ClientViewModel.cs" />
@@ -368,6 +377,8 @@
     <Content Include="Views\Reviews\Edit.cshtml" />
     <Content Include="Views\Reviews\Index.cshtml" />
     <Content Include="Views\Client\CreateReview.cshtml" />
+    <Content Include="Views\Client\EditReview.cshtml" />
+    <Content Include="Views\Employee\ViewReview.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -421,6 +432,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201812310316233_2221q.resx">
       <DependentUpon>201812310316233_2221q.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201812311426034_x223133.resx">
+      <DependentUpon>201812311426034_x223133.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201812311553264_x223133w.resx">
+      <DependentUpon>201812311553264_x223133w.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

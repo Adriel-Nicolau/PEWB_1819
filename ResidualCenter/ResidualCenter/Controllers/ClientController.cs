@@ -11,6 +11,10 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
+using ResidualCenter.Models.ViewModels;
+using System.Net;
+using System.Data.Entity;
+using System.Web.Routing;
 
 namespace ResidualCenter.Controllers
 {
@@ -111,7 +115,6 @@ namespace ResidualCenter.Controllers
 
 
         [HttpPost]
-
         [ValidateAntiForgeryToken]
         [Authorize(Roles = "Client")]
         public ActionResult CancelRequest(int? id)
@@ -128,12 +131,19 @@ namespace ResidualCenter.Controllers
             return View();
         }
         // GET: Client/Details/5
-        //  [Authorize(Roles = "Client")]
+        [Authorize(Roles = "Client")]
         public ActionResult CreateReview(int? id)
         {
+
             if (id != null)
             {
-                ClientViewModel.CreateReview review = new ClientViewModel.CreateReview();
+                Review rw = residual.Reviews.Where(r => r.ServiceRequestID == id).FirstOrDefault();
+                if (rw != null)
+                {
+
+                    return RedirectToAction("EditReview", new RouteValueDictionary(    new { controller = "Client", action = "EditReview", Id = rw.ID }));
+                }
+                ReviewViewModel.CreateReview review = new ReviewViewModel.CreateReview();
                 var userID = User.Identity.GetUserId();
                 Entity entity = residual.Entities.Where(user => user.UserId == userID).FirstOrDefault();
                 review.EntityID = entity.ID;
@@ -151,7 +161,7 @@ namespace ResidualCenter.Controllers
         [HttpPost, ActionName("CreateReview")]
         [ValidateAntiForgeryToken]
         [Authorize(Roles = "Client")]
-        public ActionResult ConfirmCreateReview(ClientViewModel.CreateReview review)
+        public ActionResult ConfirmCreateReview(ReviewViewModel.CreateReview review)
         {
             if (ModelState.IsValid)
             {
@@ -172,5 +182,56 @@ namespace ResidualCenter.Controllers
             return View(review);
 
         }
+
+
+        [Authorize(Roles = "Client")]
+        public ActionResult ListReviews()
+        {
+            var userID = User.Identity.GetUserId();
+            Entity entity = residual.Entities.Where(user => user.UserId == userID).FirstOrDefault();
+            var reviewList = residual.Reviews.Where(x => x.EntityID == entity.ID);
+
+
+            return View();
+
+        }
+
+
+
+
+
+
+        public ActionResult EditReview(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Review review = residual.Reviews.Find(id);
+            if (review == null)
+            {
+                return HttpNotFound();
+            }
+
+            return View(review);
+        }
+
+        // POST: Reviews/Edit/5
+        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult EditReview([Bind(Include = "ID,EntityID,ServiceRequestID,Content,CreationDate,Rating")] Review review)
+        {
+            if (ModelState.IsValid)
+            {
+                residual.Entry(review).State = EntityState.Modified;
+                residual.SaveChanges();
+                return RedirectToAction("Index");
+            }
+
+            return View(review);
+        }
+
     }
 }
