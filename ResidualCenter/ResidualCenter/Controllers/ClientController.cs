@@ -129,36 +129,47 @@ namespace ResidualCenter.Controllers
         }
         // GET: Client/Details/5
         //  [Authorize(Roles = "Client")]
-        public ActionResult CreateReview(int serviceID)
+        public ActionResult CreateReview(int? id)
         {
-            
-            ClientViewModel.CreateReview review = new ClientViewModel.CreateReview();
-            var userID = User.Identity.GetUserId();
-            Entity entity = residual.Entities.Where(user => user.UserId == userID).FirstOrDefault();
-            review.EntityID = entity.ID;
-            review.ServiceRequestID = (int)serviceID;
-            return View(review);
+            if (id != null)
+            {
+                ClientViewModel.CreateReview review = new ClientViewModel.CreateReview();
+                var userID = User.Identity.GetUserId();
+                Entity entity = residual.Entities.Where(user => user.UserId == userID).FirstOrDefault();
+                review.EntityID = entity.ID;
+                review.ServiceRequestID = (int)id;
+                return View(review);
+
+            }
+            else
+            {
+                return RedirectToAction("ListRequestedServices");
+            }
         }
 
-        [HttpPost]
 
+        [HttpPost, ActionName("CreateReview")]
         [ValidateAntiForgeryToken]
         [Authorize(Roles = "Client")]
-        public ActionResult CreateReview(ClientViewModel.CreateReview review)
+        public ActionResult ConfirmCreateReview(ClientViewModel.CreateReview review)
         {
-            Review r = new Review()
+            if (ModelState.IsValid)
             {
-                Content = review.Content,
-                Rating = review.Rating,
-                ServiceRequestID = review.ServiceRequestID,
-                EntityID = review.EntityID,
-                CreationDate = DateTime.Today,
+                Review r = new Review()
+                {
+                    Content = review.Content,
+                    Rating = review.Rating,
+                    ServiceRequestID = review.ServiceRequestID,
+                    EntityID = review.EntityID,
+                    CreationDate = DateTime.Today,
 
-            };
-            residual.Reviews.Add(r);
+                };
+                residual.Reviews.Add(r);
 
-            residual.SaveChanges();
-            return RedirectToAction("ListRequestedServices");
+                residual.SaveChanges();
+                return RedirectToAction("ListRequestedServices");
+            }
+            return View(review);
 
         }
     }

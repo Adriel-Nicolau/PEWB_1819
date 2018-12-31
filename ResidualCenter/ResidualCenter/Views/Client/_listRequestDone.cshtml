@@ -1,6 +1,5 @@
 ﻿@model ResidualCenter.Models.ServiceRequest
-@using (Html.BeginForm("CreateReview", "Client", FormMethod.Post, new { id = "review", @class = "form-horizontal", role = "form" }))
-{
+
     @Html.AntiForgeryToken()
     <div class="jumbotron" style="background-color:darkgoldenrod; font-size:small; height:auto;width:unset">
         <table class="table">
@@ -69,9 +68,8 @@
                 </td>
 
                 <td>
-                    <input type="button" value="Review" class="btn btn-primary" onclick="location.href='@Url.Action("CreateReview", "Client")?id=' + document.getElementById('serviceID').value" />
+                    <input type="button" value="Aceitar" class="btn btn-primary" onclick="location.href='@Url.Action("CreateReview", "Client")?id=' + document.getElementById('serviceID').value" />
                 </td>
             </tr>
         </table>
     </div>
-}
