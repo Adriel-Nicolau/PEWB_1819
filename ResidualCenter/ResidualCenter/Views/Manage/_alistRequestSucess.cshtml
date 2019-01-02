@@ -34,11 +34,14 @@
                 <th>
 
                 </th>
+                <th>
+
+                </th>
             </tr>
             <tr>
 
                 <td>
-                    @Html.HiddenFor(model => model.ID)
+                    @Html.HiddenFor(model => model.ID, htmlAttributes: new { id = "serviceID" })
                 </td>
                 <td align="left">
                     @Html.DisplayFor(model => model.RequestDate)
@@ -71,7 +74,9 @@
                         </div>
                     </div>
                 </td>
-
+                <td align="left">
+                    <input type="button" value="Delete" class="btn btn-danger" onclick="location.href='@Url.Action("DeleteRequest", "Manage")?id=' + document.getElementById('serviceID').value" />
+                </td>
             </tr>
         </table>
 

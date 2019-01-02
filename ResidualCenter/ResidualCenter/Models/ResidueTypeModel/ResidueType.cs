@@ -11,7 +11,7 @@ namespace ResidualCenter.Models
         public int ID { get; set; }
         [Display(Name = "Resíduo")]
         public string Name { get; set; }
-
+        [Display(Name = "Unidade")]
         public string Unit { get; set; }
     }
 }

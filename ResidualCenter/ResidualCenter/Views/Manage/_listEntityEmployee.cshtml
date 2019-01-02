@@ -2,15 +2,14 @@
 <div class="jumbotron " style="font-size:small; height:auto;width:unset">
     <table class="table">
         <tr>
+
             <th>
-                @Html.DisplayNameFor(model => model.Location.Name)
+                @Html.DisplayNameFor(model => model.Name)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Email)
             </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Name)
-            </th>
+
             <th>
                 @Html.DisplayNameFor(model => model.Contact)
             </th>
@@ -23,19 +22,20 @@
             <th>
                 @Html.DisplayNameFor(model => model.Adress)
             </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Location.Name)
+            </th>
             <th></th>
         </tr>
 
         <tr>
             <td>
-                @Html.DisplayFor(model => model.Location.Name)
+                @Html.DisplayFor(model => model.Name)
             </td>
             <td>
                 @Html.DisplayFor(model => model.Email)
             </td>
-            <td>
-                @Html.DisplayFor(model => model.Name)
-            </td>
+
             <td>
                 @Html.DisplayFor(model => model.Contact)
             </td>
@@ -47,6 +47,9 @@
             </td>
             <td>
                 @Html.DisplayFor(model => model.Adress)
+            </td>
+            <td>
+                @Html.DisplayFor(model => model.Location.Name)
             </td>
             <td>
                 @Html.ActionLink("Delete", "DeleteEntity", new { id = Model.UserId })

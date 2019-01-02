@@ -72,9 +72,11 @@
     {
         @Html.AntiForgeryToken()
 
-        <div class="form-actions no-color">
-            <input type="submit" value="Delete" class="btn btn-danger" /> |
-            @Html.ActionLink("Back to List", "Index")
+    <div class="form-actions no-color">
+        <input type="submit" value="Delete" class="btn btn-danger" />
+        <div class="control-label col-md-2">
+            @Html.ActionLink("Voltar", "ListEntities")
         </div>
+    </div>
     }
 </div>

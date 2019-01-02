@@ -427,7 +427,7 @@ namespace ResidualCenter.Controllers
         {
             if (id == null)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                return View("Index");
             }
 
             Entity entity = residual.Entities.Where(x => x.UserId == id).FirstOrDefault();
@@ -451,7 +451,7 @@ namespace ResidualCenter.Controllers
             var user = userManager.FindById(id);
             userManager.Delete(user);
 
-            return View();
+            return View("Index");
         }
 
 
@@ -581,7 +581,7 @@ namespace ResidualCenter.Controllers
         {
             if (id == null)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                return View("Index");
             }
             ServiceType serviceType = residual.ServicesTypes.Find(id);
             if (serviceType == null)
@@ -608,8 +608,8 @@ namespace ResidualCenter.Controllers
         {
 
 
-            //  ViewBag.EmployeeList = CreateEmployeeList();
-            ViewBag.ServiceRequestStatusID = new SelectList(residual.ServiceRequestStatus, "ID", "Name");
+          
+            ViewBag.ServiceRequestStatusID = new SelectList(residual.ServiceRequestStatus.Where(x => x.Name != "Destacado" && x.Name != "Finalizado"), "ID", "Name");
             return View(residual.ServiceRequests.ToList());
 
         }
@@ -623,6 +623,20 @@ namespace ResidualCenter.Controllers
             ServiceRequest sr = residual.ServiceRequests.Find(changes.ID);
             sr.ServiceRequestStatusID = changes.ServiceRequestStatusID;
             residual.Entry(sr).State = EntityState.Modified;
+            residual.SaveChanges();
+
+
+            return RedirectToAction("ListServicesRequest");
+        }
+
+
+        [Authorize(Roles = "Admin")]
+        public ActionResult DeleteRequest(int? id)
+        {
+
+            ServiceRequest sr = residual.ServiceRequests.Find(id);
+            residual.ServiceRequests.Remove(sr);
+
             residual.SaveChanges();
 
 
@@ -664,7 +678,7 @@ namespace ResidualCenter.Controllers
         {
             if (id == null)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                return View("Index");
             }
             ResidueType residueType = residual.ResidueTypes.Find(id);
             if (residueType == null)
@@ -697,7 +711,7 @@ namespace ResidualCenter.Controllers
         {
             if (id == null)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                return View("Index");
             }
             ResidueType residueType = residual.ResidueTypes.Find(id);
             if (residueType == null)

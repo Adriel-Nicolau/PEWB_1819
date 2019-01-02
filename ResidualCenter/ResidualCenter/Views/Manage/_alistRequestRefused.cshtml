@@ -30,7 +30,10 @@
                 <th>
                     @Html.DisplayNameFor(model => model.Location)
                 </th>
-                
+
+                <th>
+
+                </th>
                 <th>
 
                 </th>
@@ -39,7 +42,7 @@
 
 
                 <td>
-                    @Html.HiddenFor(model => model.ID)
+                    @Html.HiddenFor(model => model.ID, htmlAttributes: new { id = "serviceID" })
                 </td>
                 <td align="left">
                     @Html.DisplayFor(model => model.RequestDate)
@@ -62,7 +65,7 @@
                 <td align="left">
                     @Html.DisplayFor(model => model.Location)
                 </td>
-          
+
                 <td>
                     <div class="form-group">
                         <div class="col-md-offset-2 col-md-10">
@@ -70,7 +73,9 @@
                         </div>
                     </div>
                 </td>
-
+                <td align="left">
+                    <input type="button" value="Delete" class="btn btn-danger" onclick="location.href='@Url.Action("DeleteRequest", "Manage")?id=' + document.getElementById('serviceID').value" />
+                </td>
 
             </tr>
         </table>
